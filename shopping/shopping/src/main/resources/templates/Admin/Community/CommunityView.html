@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/Community/CommunityView.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form name="mf1">
+    <table>
+        <tr>
+            <td colspan="4" class="view_subject">
+                <h2><span th:if="${view.type == '공지'}"><b>Announce</b></span></h2>
+                <h2><span th:if="${view.type == '리뷰'}"><b>Review</b></span></h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="view_td1">번호</td>
+            <td><span th:text="${view.idx}"></span><input type="hidden" name="idx" th:value="${view.idx}"></td>
+            <td class="view_td1">작성일</td>
+            <td><span th:text="${view.regdate}"></span></td>
+        </tr>
+
+        <tr>
+            <td class="view_td1">작성자</td>
+            <td><span th:text="${view.name}"></span><input type="hidden" name="name" th:value="${view.name}"></td>
+        </tr>
+
+        <tr>
+            <td class="view_td1">제목</td>
+            <td colspan="3"><span th:text="${view.title}"></span></td>
+        </tr>
+
+        <tr>
+            <td class="view_content_td">내용</td>
+            <td colspan="3">
+                <div>
+                <th:block th:each="path, pathStat : ${view.path}">
+                <img th:if="${path != 'none'}" th:src="@{/tools/review(image=${path})}" th:id="image+${pathStat.count}" onmouseenter="zoomIn(this.id)" onmouseleave="zoomOut(this.id)" class="image_tag">
+                </th:block>
+                </div>
+                <br><br><br>
+                <div>
+                <span th:text="${view.content}"></span>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="4" class="view_btn_td">
+                <a th:href="@{/admin/Community}"><input type="button" value="목록" class="view_btn"></a>&emsp;
+                <a th:href="@{/admin/CommunityModify(idx=${view.idx})}"><input type="button" value="수정" class="view_btn"></a>&emsp;
+                <input type="button" value="삭제" class="view_btn">
+            </td>
+        </tr>
+    </table>
+    </form>
+
+    <form name="mf2">
+        <table>
+            <tr>
+                <td class="Comment_subject">
+                    <h2><b>Comment</b></h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="Comment_td1">
+                    <input type="hidden" name="community_idx" th:value="${view.idx}">
+                    <input type="hidden" name="comment_idx" id="comment_idx" value="0">
+                    <span><textarea name="content" id="Comment_content_box"  class="Comment_content_box"></textarea></span>&emsp;
+                    <button type="submit" th:formaction="@{/admin/Comment_proc}" formmethod="get" class="Comment_register_btn" onclick="return Comment()">입력</button>
+                    <br><br>
+                </td>
+            </tr>
+
+            <tr th:each="comment : ${comment}">
+                <td class="Comment_box"><br>
+                    <b>작성자</b>: <span th:text="${comment.userid}"></span>&emsp;&emsp;
+                    <b>작성일</b>: <span th:text="${comment.regdate}"></span><br>
+                    <div class="Comment_content"><b>내용</b>: <span th:text="${comment.content}"></span></div><hr>
+                    <div class="Comment_option" style="text-align:right;">
+                        <span th:id="${comment.content}" th:key="${comment.idx}" onclick="change_content(this.getAttribute('key'), this.id)"><b>수정</b></span>&emsp;
+                        <span><b><a th:href="@{/admin/CommentDelete(comment_idx=${comment.idx},community_idx=${view.idx})}">삭제</a></b></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="text-align:center;">
+                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = 0, idx = ${view.idx})}">⏪</a>
+                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${nowPage - 2}, idx = ${view.idx})}">◀</a>
+                    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
+                        <a th:if="${page != nowPage} and ${page !=  0}" th:href="@{/admin/CommunityView(page = ${page - 1}, idx = ${view.idx})}" th:text="${page}"></a>
+                        <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+                    </th:block>
+                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${nowPage}, idx = ${view.idx})}">▶</a>
+                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${maxPage-1}, idx = ${view.idx})}">⏩</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/Community/CommunityView.js"></script>
+</html>
+

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/UserList.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form>
+    <table>
+        <tr>
+            <td colspan="5" class="users_title">
+                <h2>User List</h2>
+                <br>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="user_check">구분</td>
+            <td class="user_name">이름</td>
+            <td class="user_gender">성별</td>
+            <td class="user_date">생년월일</td>
+            <td class="user_phone">연락처</td>
+        </tr>
+
+        <tr th:each="users : ${user_list}">
+            <td class="user_check_"><input type="checkbox" name="User_Check" th:value="${users.idx}"></td>
+            <td class="user_name_">
+                <span id="name"><a th:href="@{/admin/UserView(idx = ${users.idx})}">[[${users.name}]]</a></span>
+            </td>
+            <td class="user_gender_"><span id="gender">[[${users.gender}]]</span></td>
+            <td class="user_date_"><span id="date">[[${users.year}]]년 [[${users.month}]]월 [[${users.day}]]일</span></td>
+            <td class="user_phone_"><span id="phone">[[${users.hp}]]</span></td>
+        </tr>
+
+        <tr>
+            <td colspan="5" class="td_btn"><br><br>
+                <button type="submit" formmethod="post" formaction="/admin/Users_Delete">삭제</button>
+                <br><br>
+            </td>
+        </tr>
+    </table>
+    </form>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+
+</html>

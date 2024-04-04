@@ -1,0 +1,40 @@
+<style>
+.modify_subject
+{
+    text-decoration:underline;
+    text-align:center;
+}
+.modify_btn
+{
+    width:75px;
+    height:30px;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+.modify_td1, .modify_content_td
+{
+    font-weight:bold;
+    width:100px;
+    text-align:center;
+}
+.modify_content_td
+{
+    width:100px;
+    height:350px;
+    text-align:center;
+}
+.modify_btn_td
+{
+    text-align:right;
+}
+.modify_image
+{
+    width:150px;
+    height:150px;
+    border: 1px solid;
+}
+</style>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/UserList.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form>
+        <table>
+            <tr>
+                <td colspan="2" class="view_title">
+                    <h2>User View</h2>
+                    <input type="hidden" name="idx" th:value="${user.idx}">
+                    <input type="hidden" name="regdate" th:value="${user.regdate}">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">이름:</td>
+                <td>&emsp;<input type="text" name="name" class="modify" th:value="${user.name}"></td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">등급:</td>
+                <td>&emsp;
+                    <select name="grade">
+                        <option value="1" th:selected="${user.grade} == '1'">1</option>
+                        <option value="2" th:selected="${user.grade} == '2'">2</option>
+                        <option value="3" th:selected="${user.grade} == '3'">3</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">아이디:</td>
+                <td>&emsp;<input type="text" name="userid" class="modify" th:value="${user.userid}"></td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">비밀번호:</td>
+                <td>&emsp;<input type="text" name="password" class="modify" th:value="${user.password}"></td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">주민번호:</td>
+                <td>&emsp;<input type="text" name="f_rrn" class="f_rrn" th:value="${user.f_rrn}">-
+                          <input type="text" name="l_rrn" class="l_rrn" th:value="${user.l_rrn}">* * * * * *
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">연락처:</td>
+                <td>&emsp;<input type="text" name="hp" class="modify" th:value="${user.hp}"></td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">주소:</td>
+                <td>&emsp;
+                    <input type="text" name="add1" id="add1" th:value="${user.add1}" placeholder="우편번호">
+                    <input type="button" onclick="address_api()" value="우편번호 찾기"><br>
+                    &emsp;
+                    <input type="text" name="add2" id="add2" th:value="${user.add2}" placeholder="주소">
+                    <input type="text" name="add3" id="add3" th:value="${user.add3}" placeholder="참고항목">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">이메일:</td>
+                <td>&emsp;
+                    <input type="text" name="mail" class="modify" th:value="${user.mail}">@
+                    <select name="web" class="web">
+                        <option value="none" th:selected="${user.web} == 'none'">선택</option>
+                        <option value="@naver.com" th:selected="${user.web} == '@naver.com'">네이버</option>
+                        <option value="@google.com" th:selected="${user.web} == '@google.com'">구글</option>
+                        <option value="@daum.net" th:selected="${user.web} == '@daum.net'">다음</option>
+                        <option value="" th:selected="${user.web} == ''">직접입력</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">잔액:</td>
+                <td>&emsp;
+                    <input type="text" name="cash" class="modify" th:value="${user.cash}">
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="view_btn"><br><br>
+                    <button type="submit" formaction="/admin/UserModify_proc" formmethod="post" class="user_view_btn">수정</button>&emsp;
+                    <br><br>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+
+</html>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+    function address_api()
+    {
+        new daum.Postcode({
+            oncomplete: function(data)
+            {
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                if (data.userSelectedType === 'R') // 사용자가 도로명 주소를 선택했을 경우
+                {
+                    addr = data.roadAddress;
+                }
+                else // 사용자가 지번 주소를 선택했을 경우(J)
+                {
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R')
+                {
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname))
+                    {
+                        extraAddr += data.bname;
+                    }
+                    if(data.buildingName !== '' && data.apartment === 'Y')
+                    {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    if(extraAddr !== '')
+                    {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    document.getElementById("add3").value = extraAddr;
+                }
+                else
+                {
+                    document.getElementById("add3").value = '';
+                }
+                document.getElementById('add1').value = data.zonecode;
+                document.getElementById("add2").value = addr;
+            }
+        }).open();
+    }
+</script>

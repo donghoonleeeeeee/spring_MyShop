@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/Items/ItemRegister.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form action="/admin/ItemRegister_proc" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td colspan="10" class="col_td1">
+                <h2>상품 등록</h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="td1">분류:</td>
+            <td class="td2">
+                <select name="category1" id="category1" onchange="set_category2(this.value)">
+                    <option value="none">선택</option>
+                    <th:block th:each="first : ${first}">
+                        <option th:text="${first.category_name}"
+                                th:value="${first.code}">
+                        </option>
+                    </th:block>
+                </select>
+
+                <select name="category2" id="category2" onchange="set_category3(this.value)">
+                    <option value="none">선택</option>
+                </select>
+
+                <select name="category3" id="category3">
+                    <option value="none">선택</option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>제품명</td>
+            <td class="td2"><br><input type="text" name="item" class="item_info"></td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>재고</td>
+            <td class="td2"><br>
+                <input type="text" name="inventory" id="inventory" class="item_info" onkeyup="comma1(this.value)">EA
+            </td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>가격</td>
+            <td class="td2"><br>
+                <input type="text" name="price" id="price" class="item_info" onkeyup="comma2(this.value)">원
+            </td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>제품설명</td>
+            <td class="td2"><br><textarea name="content" class="item_content"></textarea></td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>사진1</td>
+            <td class="td2"><br><input type="file" name="files"></td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>사진2</td>
+            <td class="td2"><br><input type="file" name="files"></td>
+        </tr>
+
+        <tr>
+            <td class="td1"><br>사진3</td>
+            <td class="td2"><br><input type="file" name="files"></td>
+        </tr>
+
+        <tr>
+            <td colspan="10" class="col_td2"><br>
+                <a th:href="@{/admin/ItemType}">
+                <input type="button" value="뒤로가기" class="back_btn">
+                </a>&emsp;
+                <input type="submit" value="업로드" class="item_btn">
+            </td>
+        </tr>
+    </table>
+    </form>
+    <br><br>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/Items/ItemRegister.js"></script>
+</html>
+

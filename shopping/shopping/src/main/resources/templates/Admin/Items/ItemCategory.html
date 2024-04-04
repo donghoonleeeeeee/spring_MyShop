@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/Items/ItemCategory.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form action="/admin/CategoryRegister" method="post">
+        <table >
+
+            <tr>
+                <td>
+                    <h2>Category</h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <select name="category1" id="category1" onchange="change_label1(this.value)">
+                        <option value="none">선택</option>
+                        <option value="category1">1차 분류</option>
+                        <th:block th:each="first, firstStat : ${first}">
+                        <option th:value="${first.code}">[[${first.category_name}]]</option>
+                        </th:block>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="category2" id="category2" class="category2" onchange="change_label2(this.value)"></select>
+                </td>
+
+                <td>
+                    <select name="category3" id="category3" class="category3" onchange="change_label3(this.value)"></select>
+                </td>
+
+                <td>
+                    <input type="text" name="code" id="code" class="code" value="none" readonly>
+                    <input type="text" name="category_name" id="category_name">
+                </td>
+                <td><input type="submit" value="등록"></td>
+            </tr>
+        </table>
+    </form>
+
+    <br><br>
+
+    <table class="modify_table">
+        <tr>
+            <td colspan="3" class="modify_title"><h2>Category List</h2></td>
+        </tr>
+
+        <tr>
+            <td class="modify_code_info" colspan="3">
+                <form>
+                <input type="text" name="modify_code" id="modify_code" class="modify_code" readonly>
+                <input type="text" name="modify_name" id="modify_name" class="modify_name">
+                    <button type="submit" formaction="/admin/Category_modify" formmethod="post">수정</button>
+                    <button type="submit" formaction="/admin/Category_delete" formmethod="post" onclick="return category_check()">삭제</button>
+                </form>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="first_td" id="first_td">
+                <th:block th:each="first, firstStat : ${first}">
+                    <span th:id="first+${firstStat.count}" th:text="${first.category_name}" class="first_class" th:onclick="set_second([[${first.code}]],this.id,[[${first.category_name}]])"></span>
+                    <br><br>
+                </th:block>
+            </td>
+
+            <td id="second_td" class="second_td">
+                <div id="second" class="second"></div>
+            </td>
+
+            <td id="third_td" class="third_td">
+                <div id="third" class="third"></div>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/Items/ItemCategory.js"></script>
+</html>
+

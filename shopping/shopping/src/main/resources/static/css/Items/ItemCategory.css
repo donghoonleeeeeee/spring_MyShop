@@ -1,0 +1,35 @@
+<style>
+.category2, .category3, .second, .third
+{
+    display:none;
+}
+.code
+{
+    background-color:green;
+    color:white;
+    width:50px;
+    text-align:center;
+}
+.modify_table
+{
+    width:600px;
+}
+.modify_title, .modify_code_info
+{
+    text-align:center;
+}
+.first_td, .second_td, .third_td
+{
+    width:33%;
+    text-align:center;
+    height:150px;
+}
+.modify_code
+{
+    width:70px;
+}
+.modify_name
+{
+    width:100px;
+}
+</style>

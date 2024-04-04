@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/User/Shopping.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+<section>
+    <div style="float:left;">
+    <div id="images" style="width:400px; height:400px; margin:20px 100px;" onmouseenter="btn_on()" onmouseleave="btn_off()">
+        <th:block th:each="image, imageStat : ${images}">
+            <div><img th:src="@{/tools/download(image = ${image})}" th:id="image+${imageStat.count}" style="width:400px; height:400px; border:1px solid;"></div>
+        </th:block>
+        <input type="hidden" id="image_count" value="1">
+        <span id="prev_btn" style="font-size:60px; color:lightgray; position:absolute; margin:-250px 0; display:none; cursor:pointer;" onclick="change_count(this.id), change_image()"><b>〈</b></span>
+        <span id="next_btn" style="font-size:60px; color:lightgray; position:absolute; margin:-250px 370px; display:none; cursor:pointer;" onclick="change_count(this.id), change_image()"><b>〉</b></span>
+    </div>
+    <div id="info" style="width:500px;">
+        상품 정보 테스트
+    </div>
+    </div>
+</section>
+
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/User/Shopping.js"></script>
+<script>
+    document.getElementById("image2").style.display = "none";
+    document.getElementById("image3").style.display = "none";
+    function btn_on()
+    {
+        document.getElementById("prev_btn").style.display = "block";
+        document.getElementById("next_btn").style.display = "block";
+    }
+    function btn_off()
+    {
+        document.getElementById("prev_btn").style.display = "none";
+        document.getElementById("next_btn").style.display = "none";
+    }
+    function change_count(id)
+    {
+        var count = parseInt(document.getElementById("image_count").value);
+        if(id == "prev_btn") // 이전
+        {
+            if(count == 1)
+            {
+                count = 3;
+            }
+            else
+            {
+                count = count - 1;
+            }
+        }
+        else if(id == "next_btn") // 다음
+        {
+            if(count == 3)
+            {
+                count = 1;
+            }
+            else
+            {
+                count = count + 1;
+            }
+        }
+        document.getElementById("image_count").value = count;
+    }
+    function change_image(id)
+    {
+        var image1 = document.getElementById("image1");
+        var image2 = document.getElementById("image2");
+        var image3 = document.getElementById("image3");
+        var count = document.getElementById("image_count").value;
+
+        if(count == "1")
+        {
+            image1.style.display = "block";
+            image2.style.display = "none";
+            image3.style.display = "none";
+        }
+        else if(count == "2")
+        {
+            image1.style.display = "none";
+            image2.style.display = "block";
+            image3.style.display = "none";
+        }
+        else
+        {
+            image1.style.display = "none";
+            image2.style.display = "none";
+            image3.style.display = "block";
+        }
+    }
+</script>
+</html>
+

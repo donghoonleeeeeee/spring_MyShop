@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <center>
+        <h2>Welcome!</h2>
+        <span style="color:red;">Beer/Lager에서는 19세미만 청소년은 가입이 제한됩니다.</span>
+    </center>
+
+    <form action="/join_proc" method="post" name="mf">
+        <table border="1">
+            <tr>
+                <td colspan="2"><h3>로그인 정보</h3></td>
+            </tr>
+
+            <tr>
+                <td>아이디</td>
+                <td><input type="text" name="userid" id="userid" class="join" onkeyup="checking()"> <span id="id_check"></span></td>
+            </tr>
+
+            <tr>
+                <td><br>비밀번호</td>
+                <td><br><input type="password" name="password" id="password" class="join"></td>
+            </tr>
+
+            <tr>
+                <td><br>비밀번호 재확인</td>
+                <td><br><input type="password" name="password_ck" id="password_ck" class="join"></td>
+            </tr>
+
+            <tr>
+                <td><br><h3>회원 정보</h3></td>
+            </tr>
+
+            <tr>
+                <td>이름</td>
+                <td><input type="text" name="name" id="name" onclick="test()" class="join"></td>
+            </tr>
+
+            <tr>
+                <td><br>주민번호</td>
+                <td><br><input type="number" name="f_rrn" id="f_rrn" class="join" placeholder="생년월일 6자리"> -
+                        <input type="number" name="l_rrn" id="l_rrn" onkeyup="return input_l_rrn(this.value)" class="join"><b> * * * * * * </b></td>
+            </tr>
+
+            <tr>
+                <td><br>휴대폰 번호</td>
+                <td><br><input type="number" name="hp" id="hp" class="join" placeholder="-없이 숫자만 입력"></td>
+            </tr>
+
+            <tr>
+                <td><br>주소</td>
+                <td><br>
+                    <input type="text" name="add1" class="join" id="add1" placeholder="우편번호">
+                    <input type="button" onclick="address_api()" value="우편번호 찾기"><br><br>
+                    <input type="text" name="add2" class="join" id="add2" placeholder="주소">
+                    <input type="text" name="add3" class="join" id="add3" placeholder="참고항목">
+                </td>
+            </tr>
+
+            <tr>
+                <td><br>이메일</td>
+                <td><br>
+                    <input type="text" name="mail" id="mail" class="join">@
+                    <select name="web" id="web">
+                        <option value="none">선택</option>
+                        <option value="@naver.com">네이버</option>
+                        <option value="@google.com">구글</option>
+                        <option value="@daum.net">다음</option>
+                        <option value="">직접입력</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <br><br><input type="submit" value="가입하기" class="join_btn" onclick="return join_check()">
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</section>
+
+<br><th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="/js/Join.js"></script>
+</html>

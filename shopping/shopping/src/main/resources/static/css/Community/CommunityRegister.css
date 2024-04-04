@@ -1,0 +1,85 @@
+<style>
+.register_table
+{
+    width:800px;
+    border : 1px solid;
+    display : flex;
+    justify-content:center;
+    align-items:center;
+}
+.register_td1
+{
+    width:100px;
+}
+.register_td2, .register_title
+{
+    width:500px;
+}
+.register_subject
+{
+    text-align:center;
+    text-decoration:underline;
+}
+.type1
+{
+    border-radius:10px;
+    width:70px;
+    height:30px;
+    background-color:black;
+    border-color:black;
+    color:white;
+    font-weight:bold;
+}
+.type2, .type3
+{
+    border-radius:10px;
+    width:70px;
+    height:30px;
+    background-color:white;
+    font-weight:bold;
+}
+.content
+{
+    resize : none;
+    width: 500px;
+    height : 200px;
+}
+.register_btn
+{
+    width:75px;
+    height:30px;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+.register_btn_td
+{
+    text-align : right;
+}
+.register_file
+{
+    display:none;
+}
+.register_file_btn
+{
+    width:150px;
+    height:150px;
+    background-color:white;
+    border-color:black;
+    font-size:20px;
+}
+.Preview_image
+{
+    width:150px;
+    height:150px;
+    display:none;
+    border: 1px solid;
+}
+.admin_post
+{
+    font-weight:bold;
+}
+</style>

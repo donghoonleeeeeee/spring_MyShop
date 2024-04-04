@@ -1,0 +1,136 @@
+<style>
+header
+{
+    width:70%;
+    margin:0 auto;
+}
+    .logo
+    {
+        text-align:center;
+    }
+    .menu
+    {
+        text-align:right;
+        color:black;
+    }
+    a
+    {
+        text-decoration:none;
+        color: inherit;
+    }
+
+nav
+{
+    background-color:black;
+    width:70%;
+    height:30px;
+    margin:0 auto;
+    color:white;
+}
+    .search
+    {
+        text-align:right;
+    }
+    .search_button
+    {
+     background-color:transparent;
+     outline:none;
+     border:none;
+    }
+    .intro
+    {
+        text-align:left;
+        float:left;
+    }
+    .item_manager
+    {
+        border-color:black;
+        background-color:black;
+        color:white;
+        font-size:16px;
+        font-weight:bold;
+        appearance:none;
+        width:90px;
+        text-align:center;
+        cursor:pointer;
+        overflow:hidden;
+    }
+    .intro
+    {
+        position:absolute;
+    }
+    .admin_user_list, .admin_user_event, .admin_user_community, .admin_user_item
+    {
+        float:left;
+    }
+    .search
+    {
+        float:right;
+    }
+section
+{
+    background-color:white;
+    width:70%;
+    margin:0 auto;
+}
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button
+    {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .login_table
+    {
+         width:520px;
+         display:flex;
+         justify-content:center;
+         align-items:center;
+    }
+    .login_btn, .join_btn
+    {
+        background-color:black;
+        border:black;
+        color:white;
+        width:510px;
+        height:30px;
+    }
+    .userid, .password
+    {
+        width:500px;
+        outline:none
+    }
+    .userid:focus, .password:focus, .join:focus
+    {
+        border-color:#0982f0;
+        outline:none
+    }
+    .join, .userid, .password
+    {
+        border-top:0px;
+        border-right:0px;
+        border-left:0px;
+        outline:none;
+    }
+    #userid, #password, #password_ck, #name, #hp
+    {
+        width:300px;
+    }
+    #f_rrn, #web
+    {
+        width:100px;
+    }
+    #l_rrn
+    {
+        width:10px;
+    }
+
+table
+    {
+        margin:0 auto;
+    }
+
+tr, td
+    {
+        border:none;
+    }
+</style>

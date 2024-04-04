@@ -1,0 +1,40 @@
+<style>
+.Comment_subject
+{
+    text-align:center;
+    text-decoration:underline;
+    font-size:20px;
+}
+.Comment_box
+{
+    border:2px solid;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+}
+.Comment_content_box
+{
+    resize:none;
+    width:400px;
+    height:70px;
+}
+.Comment_register_btn
+{
+    width:75px;
+    height:75px;
+    border-color:black;
+    background-color:black;
+    color:white;
+    font-size:18px;
+    font-weight:bold;
+    float:right;
+}
+.Comment_td1, .Comment_box, .Comment_content
+{
+    text-align:left;
+}
+.Comment_option, .Comment_btn_td
+{
+    text-align:right;
+}
+</style>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/Items/ItemList.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form>
+    <table class="ItemList_table">
+
+        <tr>
+            <td colspan="5" class="list_title">
+                <h2>등록된 상품 목록</h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5">
+                <select name="category1" id="category1" onchange="set_category2(this.value)">
+                    <option value="none">선택</option>
+                    <th:block th:each="first : ${first}">
+                        <option th:text="${first.category_name}"
+                                th:value="${first.code}">
+                        </option>
+                    </th:block>
+                </select>
+                &emsp;&emsp;
+                <select name="category2" id="category2" onchange="set_category3(this.value)">
+                    <option value="none">선택</option>
+                </select>
+                &emsp;&emsp;
+                <select name="category3" id="category3">
+                    <option value="none">선택</option>
+                </select>
+                &emsp;
+                &emsp;
+                <input type="text" name="keyword" id="keyword" style="width:100px;">
+                <input type="button" value="검색" onclick="search_item()">
+                <br><br>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="list_check">구분</td>
+            <td class="list_image">사진</td>
+            <td class="list_item">제품명</td>
+            <td class="list_inventory">재고</td>
+            <td class="list_price">가격</td>
+        </tr>
+
+        <tr th:each="list : ${item_list}" id="item_list">
+            <td>
+                <input type="checkbox" id="check" name="check" th:value="${list.idx}" onclick="change_value(this.value)">
+                <input type="checkbox" th:id="${list.idx}" name="item_check" value="0" checked style="display:none;">
+            </td>
+            <td><img th:src="@{/tools/thum_download(image = 'thum_'+${list.itemsFileEntities.get(0).path})}" width="150px" height="150px;"></td>
+            <td align="center"><a th:href="@{/admin/ItemsModify(idx = ${list.idx})}">[[${list.item}]]</a></td>
+            <td>
+                <input type="text" th:id="inventory+${list.idx}" name="inventory" th:value="${list.inventory}" onclick="result(this.value)" style="width:50px; text-align:right;">EA&emsp;
+            </td>
+            <td><input type="text" th:id="price+${list.idx}" name="price" th:value="${list.price}" onclick="result(this.value)" style="width:80px; text-align:right;">원</td>
+        </tr>
+
+        <tr>
+            <td colspan="5" style="text-align:center;">
+                <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/ItemList(page = 0,keyword = ${keyword}, category = ${category})}">⏪</a>
+                <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/ItemList(page = ${nowPage - 2},keyword = ${keyword}, category = ${category})}">◀</a>
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
+                    <a th:if="${page != nowPage} and ${endPage != 0}" th:href="@{/admin/ItemList(page = ${page - 1},keyword = ${keyword}, category = ${category})}" th:text="${page}"></a>
+                    <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
+                </th:block>
+                <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/ItemList(page = ${nowPage},keyword = ${keyword}, category = ${category})}">▶</a>
+                <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/ItemList(page = ${maxPage-1},keyword = ${keyword}, category = ${category})}">⏩</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="5" class="list_btn">
+                <br>
+                <a th:href="@{/admin/ItemType}">
+                <input type="button" value="뒤로" class="type_back">
+                </a>&emsp;
+                <button type="submit" formaction="/admin/List_modify" class="modify_btn" formmethod="post">수정</button>&emsp;
+                <button type="submit" formaction="/admin/List_delete" class="delete_btn" formmethod="post">삭제</button>
+                <br><br>
+            </td>
+        </tr>
+    </table>
+    </form>
+</section>
+
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/Items/ItemList.js"></script>
+</html>
+

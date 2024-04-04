@@ -1,0 +1,50 @@
+<style>
+.ItemList_table
+{
+    text-align:center;
+}
+.list_title
+{
+    text-decoration : underline;
+}
+.list_check
+{
+    width:50px;
+    font-weight:bold;
+}
+.list_image, .list_item, .list_inventory
+{
+    width: 100px;
+    font-weight:bold;
+}
+.list_price
+{
+    width: 150px;
+    font-weight:bold;
+}
+.list_btn
+{
+    text-align:right;
+}
+.list_category1, .list_category2, .list_category3
+{
+    width:80px;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:white;
+    text-align:center;
+    font-size:16px;
+}
+.modify_btn, .delete_btn, .type_back
+{
+    width:75px;
+    height:30px;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+</style>

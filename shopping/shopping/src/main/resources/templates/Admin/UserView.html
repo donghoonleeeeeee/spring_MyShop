@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/UserList.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form>
+        <table>
+            <tr>
+                <td colspan="2" class="view_title">
+                    <h2>User View</h2>
+                    <input type="hidden" name="idx" th:value="${user.idx}">
+                    <input type="hidden" name="regdate" th:value="${user.regdate}">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">이름:</td>
+                <td>&emsp;[[${user.name}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">아이디:</td>
+                <td>&emsp;[[${user.userid}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">비밀번호:</td>
+                <td>&emsp;[[${user.password}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">주민번호:</td>
+                <td>&emsp;[[${user.f_rrn}]]-[[${user.l_rrn}]]******</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">연락처:</td>
+                <td>&emsp;[[${user.hp}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">주소:</td>
+                <td>&emsp;[[${user.add1}]] / [[${user.add2}]] / [[${user.add3}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">이메일:</td>
+                <td>&emsp;[[${user.mail}]] [[${user.web}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">가입일:</td>
+                <td>&emsp;[[${user.regdate}]]</td>
+            </tr>
+
+            <tr>
+                <td class="user_view_td1">잔액:</td>
+                <td>&emsp;[[${user.cash}]]</td>
+            </tr>
+
+            <tr>
+                <td colspan="2" class="view_btn"><br><br>
+                    <a th:href="@{/admin/UserList}"><input type="button" class="user_view_btn" value="뒤로"></a>&emsp;
+                    <button type="submit" formaction="/admin/UserModify" formmethod="post" class="user_view_btn">수정</button>&emsp;
+                    <button type="submit" formaction="/admin/UserDelete" formmethod="post" class="user_view_btn">삭제</button>&emsp;
+                    <br><br>
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+
+</html>

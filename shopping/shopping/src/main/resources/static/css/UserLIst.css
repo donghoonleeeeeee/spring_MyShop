@@ -1,0 +1,99 @@
+<style>
+/* UserList Start */
+.users_title
+{
+    text-decoration:underline;
+    text-align:center;
+}
+.user_check, .user_gender
+{
+    width:50px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.user_name
+{
+    width:100px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.user_date, .user_phone
+{
+    width:200px;
+    font-weight:bold;
+    text-align:center;
+}
+
+.user_check_, .user_gender_, .user_name_, .user_date_, .user_phone_
+{
+    text-align:center;
+}
+
+.td_btn
+{
+    text-align:right;
+}
+
+.user_delete_btn
+{
+    width:75px;
+    height:30px;
+    border-top:0px;
+    border-left:0px;
+    border-right:0px;
+    background-color:white;
+    font-size:18px;
+    font-weight:bold;
+}
+/* UserList End */
+
+/* ------------------------------------- */
+
+/* UserView Start */
+.view_title
+{
+    text-align:center;
+    text-decoration:underline;
+}
+.view_btn
+{
+    text-align:right;
+}
+.user_view_btn
+{
+   width:60px;
+   height:30px;
+   border-top:0px;
+   border-left:0px;
+   border-right:0px;
+   background-color:white;
+   font-size:16px;
+   font-weight:bold;
+}
+.user_view_td1
+{
+    font-weight:bold;
+    text-align:right;
+}
+.modify
+{
+    border-top:0px;
+    border-right:0px;
+    border-left:0px;
+    outline:none;
+    width:100px;
+}
+.f_rrn, .web, #add1, #add2, #add3
+{
+    width:100px;
+}
+.l_rrn
+{
+    width:10px;
+}
+/* UserView End */
+
+/* ------------------------------------- */
+</style>

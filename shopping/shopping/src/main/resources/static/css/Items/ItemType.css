@@ -1,0 +1,17 @@
+<style>
+.ItemType
+{
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+.type_btn
+{
+    width:200px;
+    height:100px;
+    background-color : white;
+    font-weight : bold;
+    font-size : 20px;
+}
+</style>
