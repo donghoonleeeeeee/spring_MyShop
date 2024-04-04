@@ -221,13 +221,35 @@ ItemsServiceImpl implements ItemsService
     }
 
     @Override
-    public ItemsEntity Items_view(Long idx)
+    public ItemsDTO Items_view(Long idx)
     {
         ItemsEntity entity_items = itemsRepository.findById(idx).orElse(null);
 
-        return entity_items;
+        return entity_items.toDTO();
+    }
+    @Override
+    public String itemCategory(Long idx)
+    {
+        ItemsEntity entity = itemsRepository.findById(idx).orElse(null);
+        return entity.getCategoryEntity().getCategory();
     }
 
+    @Override
+    public List<String> itemCategories(Long idx)
+    {
+        ItemsEntity entity = itemsRepository.findById(idx).orElse(null);
+        String code = entity.getCategoryEntity().getCategory();
+        List<String> categories = new ArrayList<>();
+        ItemCategoryEntity first = itemCategoryRepository.findByCategory(code.substring(0,2));
+        ItemCategoryEntity second = itemCategoryRepository.findByCategory(code.substring(0,4));
+        ItemCategoryEntity third = itemCategoryRepository.findByCategory(code.substring(0,6));
+
+
+        categories.add(first.getCategory()+"/"+first.getName());
+        categories.add(second.getCategory()+"/"+second.getName());
+        categories.add(third.getCategory()+"/"+third.getName());
+        return categories;
+    }
     @Override
     public void Items_List_Delete(List<Long> idx)
     {

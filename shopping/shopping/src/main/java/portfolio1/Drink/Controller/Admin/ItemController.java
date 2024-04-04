@@ -81,8 +81,8 @@ public class ItemController
     {
         model.addAttribute("first",itemsService.first_View());
         model.addAttribute("item",itemsService.Items_view(idx));
-        model.addAttribute("category",itemsService.StartWithCategory(itemsService.Items_view(idx).getCategoryEntity().getCategory()));
-        model.addAttribute("code",itemsService.Items_view(idx).getCategoryEntity().getCategory());
+        model.addAttribute("category",itemsService.StartWithCategory(itemsService.itemCategory(idx)));
+        model.addAttribute("code",itemsService.itemCategory(idx));
 
         return "Admin/Items/ItemsModify";
     }

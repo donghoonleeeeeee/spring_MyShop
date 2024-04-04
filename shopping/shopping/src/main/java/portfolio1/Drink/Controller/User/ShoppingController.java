@@ -54,6 +54,7 @@ public class ShoppingController
     @GetMapping("/ItemView")
     public String Item_View(@RequestParam("idx")Long idx, Model model)
     {
+        model.addAttribute("tag",itemsService.itemCategories(idx));
         model.addAttribute("item", itemsService.Items_view(idx));
         model.addAttribute("images",itemsService.Item_Images(idx));
         return "User/Items/ItemView";

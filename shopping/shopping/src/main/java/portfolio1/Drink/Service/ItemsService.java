@@ -15,7 +15,9 @@ public interface ItemsService
     void input_items(ItemsDTO itemsDTO) throws Exception;
     Page<ItemsEntity> item_list(String category, String keyword, Pageable pageable);
     void items_modify(String[] check ,ItemsModifyDTO itemsModifyDTO);
-    ItemsEntity Items_view(Long idx);
+    ItemsDTO Items_view(Long idx);
+    String itemCategory(Long idx);
+    List<String> itemCategories(Long idx);
     void modify(List<String> check, ItemsDTO itemsDTO) throws Exception;
     void Items_List_Delete(List<Long> idx);
     //String Label_Check(String category, String info, Pageable pageable);
