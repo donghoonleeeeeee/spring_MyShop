@@ -20,7 +20,8 @@
 .ItemList_table
 {
     text-align:center;
-    width:850px;
+    width:85%;
+    margin:50px 150px;
 }
 .category_search
 {

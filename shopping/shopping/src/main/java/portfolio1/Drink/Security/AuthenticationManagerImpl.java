@@ -46,7 +46,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager
         }
         else
         {
-            LOGGER.info("[Userid:{}, Password:{}, Grade:{}]", userid, password, user.getAuthorities());
+            LOGGER.info("[Userid:{}, Password:{}, Grade:{}]", userid, password, user.getAuthorities()); //NOPMD - suppressed GuardLogStatement - TODO explain reason for suppression
             LOGGER.info("[DataBase / Userid:{}]", user.getUsername());
             if(!passwordEncoder.matches(password,user.getPassword()))
             {

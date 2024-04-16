@@ -7,6 +7,8 @@ import portfolio1.Drink.Repository.Community.CommentRepository;
 import portfolio1.Drink.Repository.Community.CommunityRepository;
 import portfolio1.Drink.Repository.Items.ItemCategoryRepository;
 import portfolio1.Drink.Repository.Items.ItemsRepository;
+import portfolio1.Drink.Repository.Shopping.BasketRepository;
+import portfolio1.Drink.Repository.Shopping.ItemLikesRepository;
 import portfolio1.Drink.Service.ItemsService;
 
 @SpringBootTest
@@ -27,10 +29,16 @@ class DrinkApplicationTests {
 	@Autowired
 	CommentRepository commentRepository;
 
+	@Autowired
+	BasketRepository basketRepository;
+
+	@Autowired
+	ItemLikesRepository itemLikesRepository;
+
 	@Test
 	void 카테고리()
 	{
-		System.out.println(itemsRepository.findAllByCategoryEntity_Idx(28L).size());
+		System.out.println(itemLikesRepository.findByItemsEntity_idxAndUserid(27L,"new1").getRegdate());
 	}
 
 

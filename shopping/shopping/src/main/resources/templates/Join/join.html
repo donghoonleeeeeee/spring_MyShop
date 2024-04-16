@@ -3,73 +3,80 @@
 <meta charset="UTF-8">
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/home/join.css}"></th:block>
 <th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
 
 <body>
 <th:block th:replace="~{../static/inc/top.html}"></th:block>
 
 <section>
-    <center>
-        <h2>Welcome!</h2>
-        <span style="color:red;">Beer/Lager에서는 19세미만 청소년은 가입이 제한됩니다.</span>
-    </center>
-
     <form action="/join_proc" method="post" name="mf">
-        <table border="1">
-            <tr>
-                <td colspan="2"><h3>로그인 정보</h3></td>
-            </tr>
+        <table class="join_table">
 
             <tr>
-                <td>아이디</td>
-                <td><input type="text" name="userid" id="userid" class="join" onkeyup="checking()"> <span id="id_check"></span></td>
-            </tr>
-
-            <tr>
-                <td><br>비밀번호</td>
-                <td><br><input type="password" name="password" id="password" class="join"></td>
-            </tr>
-
-            <tr>
-                <td><br>비밀번호 재확인</td>
-                <td><br><input type="password" name="password_ck" id="password_ck" class="join"></td>
-            </tr>
-
-            <tr>
-                <td><br><h3>회원 정보</h3></td>
-            </tr>
-
-            <tr>
-                <td>이름</td>
-                <td><input type="text" name="name" id="name" onclick="test()" class="join"></td>
-            </tr>
-
-            <tr>
-                <td><br>주민번호</td>
-                <td><br><input type="number" name="f_rrn" id="f_rrn" class="join" placeholder="생년월일 6자리"> -
-                        <input type="number" name="l_rrn" id="l_rrn" onkeyup="return input_l_rrn(this.value)" class="join"><b> * * * * * * </b></td>
-            </tr>
-
-            <tr>
-                <td><br>휴대폰 번호</td>
-                <td><br><input type="number" name="hp" id="hp" class="join" placeholder="-없이 숫자만 입력"></td>
-            </tr>
-
-            <tr>
-                <td><br>주소</td>
-                <td><br>
-                    <input type="text" name="add1" class="join" id="add1" placeholder="우편번호">
-                    <input type="button" onclick="address_api()" value="우편번호 찾기"><br><br>
-                    <input type="text" name="add2" class="join" id="add2" placeholder="주소">
-                    <input type="text" name="add3" class="join" id="add3" placeholder="참고항목">
+                <td colspan="2" class="title_td">
+                    <h2><span class="title">Welcome!</span></h2><br>
+                    <span class="title_alert">Beer/Lager에서는 19세미만 청소년은 가입이 제한됩니다.</span>
                 </td>
             </tr>
 
             <tr>
-                <td><br>이메일</td>
+                <td colspan="2"><h3 class="join_h3">LOGIN INFO</h3></td>
+            </tr>
+
+            <tr>
+                <td><b>아이디</b></td>
+                <td><input type="text" name="userid" id="userid" class="userid" onkeyup="checking()"> <span id="id_check"></span></td>
+            </tr>
+
+            <tr>
+                <td><br><b>비밀번호</b></td>
+                <td><br><input type="password" name="password" id="password" class="password"></td>
+            </tr>
+
+            <tr>
+                <td><br><b>비밀번호 확인</b></td>
+                <td><br><input type="password" name="password_ck" id="password_ck" class="password_check"></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <br>
+                    <h3 class="join_h3">USER INFO</h3>
+                </td>
+            </tr>
+
+            <tr>
+                <td><b>이름</b></td>
+                <td><input type="text" name="name" id="name" onclick="test()" class="username"></td>
+            </tr>
+
+            <tr>
+                <td><br><b>주민번호</b></td>
+                <td><br><input type="number" name="f_rrn" id="f_rrn" class="f_rrn" placeholder="생년월일 6자리"> -
+                        <input type="number" name="l_rrn" id="l_rrn" onkeyup="return input_l_rrn(this.value)" class="l_rrn"><b> * * * * * * </b></td>
+            </tr>
+
+            <tr>
+                <td><br><b>휴대폰 번호</b></td>
+                <td><br><input type="number" name="hp" id="hp" class="hp" placeholder="-없이 숫자만 입력"></td>
+            </tr>
+
+            <tr>
+                <td><br><b>주소</b></td>
                 <td><br>
-                    <input type="text" name="mail" id="mail" class="join">@
-                    <select name="web" id="web">
+                    <input type="text" name="add1" class="add1" id="add1" placeholder="우편번호">
+                    <input type="button" class="search_add" onclick="address_api()" value="우편번호 찾기"><br><br>
+                    <input type="text" name="add2" class="add2" id="add2" placeholder="주소">
+                    <input type="text" name="add3" class="add3" id="add3" placeholder="참고항목">
+                </td>
+            </tr>
+
+            <tr>
+                <td><br><b>이메일</b></td>
+                <td><br>
+                    <input type="text" name="mail" id="mail" class="mail">@
+                    <select name="web" id="web" class="web">
                         <option value="none">선택</option>
                         <option value="@naver.com">네이버</option>
                         <option value="@google.com">구글</option>
@@ -81,7 +88,7 @@
 
             <tr>
                 <td colspan="2">
-                    <br><br><input type="submit" value="가입하기" class="join_btn" onclick="return join_check()">
+                    <br><br><input type="submit" value="J   O   I   N" class="join_btn" onclick="return join_check()">
                 </td>
             </tr>
 

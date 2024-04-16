@@ -36,10 +36,6 @@ public class CommunityController
         Page<CommunityListDTO> list = communityService.CommunityList(type, principal, pageable);
         int scale = 2;
         int nowPage = list.getPageable().getPageNumber()+1;
-        System.out.println("NowPage: "+nowPage);
-        System.out.println("StartPage: "+Math.max(nowPage - scale, 1));
-        System.out.println("EndPage: "+Math.min(nowPage + scale, list.getTotalPages()));
-        System.out.println("MaxPage: "+list.getTotalPages());
         model.addAttribute("type",type);
         model.addAttribute("list",list);
         model.addAttribute("nowPage", nowPage);

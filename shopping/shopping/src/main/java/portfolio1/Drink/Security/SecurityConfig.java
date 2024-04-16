@@ -29,7 +29,7 @@ public class SecurityConfig
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception
     {
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/home","/login/**","/join","/join_proc","/image/**","/userid_check","/js/**","/css/**","/tools/**").permitAll()
+                .requestMatchers("/main/**","/image/**","/js/**","/css/**","/tools/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("3")
                 .requestMatchers("/User/**","/community/**").hasAnyRole("3","2")
                 .anyRequest().authenticated()
@@ -41,10 +41,10 @@ public class SecurityConfig
 
         http
                 .formLogin(Login -> Login
-                        .loginPage("/login")
+                        .loginPage("/main/login")
                         .loginProcessingUrl("/login_proc")
-                        .defaultSuccessUrl("/home",true)
-                        .failureUrl("/login/fail")
+                        .defaultSuccessUrl("/main/home",true)
+                        .failureUrl("/main/login_fail")
                         .usernameParameter("userid")
                         .passwordParameter("password")
                         .permitAll()
@@ -52,9 +52,9 @@ public class SecurityConfig
 
         http
                 .logout(Logout -> Logout
-                        .logoutUrl("/logout")
+                        .logoutUrl("/main/logout")
                         .deleteCookies("login")
-                        .logoutSuccessUrl("/login")
+                        .logoutSuccessUrl("/main/login")
                         .permitAll()
                 );
         /*

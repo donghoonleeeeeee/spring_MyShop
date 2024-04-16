@@ -3,6 +3,7 @@
 {
     display:grid;
     grid-template-columns:1fr 1fr;
+    margin:110px 400px;
 }
 .image_div
 {
@@ -38,7 +39,7 @@
 {
     width:400px;
     height:400px;
-    margin:10px -50px;
+    margin:0px auto;
 }
 .info_table
 {
@@ -64,7 +65,7 @@
     font-size:14px;
     color:gray;
     float:left;
-    margin:30px 7px;
+    margin:10px 5px;
 }
 .item_content
 {
@@ -73,7 +74,6 @@
 .item_name
 {
     font-weight:bold;
-    float:left
 }
 .item_tag
 {
@@ -104,7 +104,7 @@
     font-size:14px;
     color:gray;
     float:left;
-    margin:30px 7px;
+    margin:10px 5px;
 }
 .delivery_content
 {
@@ -129,11 +129,12 @@
     font-size:14px;
     color:gray;
     float:left;
-    margin:30px 7px;
+    margin:10px 5px;
 }
 .price_content
 {
     font-size:14px;
+    margin:10px 0;
 }
 .down_btn
 {
@@ -151,13 +152,12 @@
 {
     float:left;
     width:15px;
-    margin:20px 0px;
     text-align:center;
 }
 .price
 {
     font-weight:bold;
-    margin:20px 0px;
+    font-size:16px;
 }
 .direct_btn, .basket_btn
 {

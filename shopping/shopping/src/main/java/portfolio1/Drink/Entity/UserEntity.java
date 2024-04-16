@@ -2,10 +2,7 @@ package portfolio1.Drink.Entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +26,7 @@ public class UserEntity implements UserDetails
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idx; // 기본키
 
+    @Setter
     @Column(name="grade")
     private int grade;
 
@@ -38,24 +36,29 @@ public class UserEntity implements UserDetails
     @Column(name="password") // 암호
     private String password;
 
+    @Setter
     @Column(name="name") // 이름
     private String name;
 
     @Column(name="rrn") // 주민번호
     private String rrn;
 
+    @Setter
     @Column(name="hp") // 연락처
     private String hp;
 
+    @Setter
     @Column(name="address") // 주소
     private String address;
 
+    @Setter
     @Column(name="email") // 이메일
     private String email;
 
     @Column(name="regdate") // 가입일
     private String regdate;
 
+    @Setter
     @Column(name="cash") // 잔액
     private int cash;
 

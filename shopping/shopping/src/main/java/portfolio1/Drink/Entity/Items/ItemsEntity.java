@@ -4,6 +4,7 @@ package portfolio1.Drink.Entity.Items;
 import jakarta.persistence.*;
 import lombok.*;
 import portfolio1.Drink.DTO.Items.ItemsDTO;
+import portfolio1.Drink.Entity.Shopping.ItemLikeEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +33,16 @@ public class ItemsEntity {
 
     @Column(name = "content")
     private String content; // 제품설명
-
+    
     @Setter
     @Column(name="regdate")
     private String regdate; // 등록일
 
     @OneToMany(mappedBy = "itemsEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ItemsFileEntity> itemsFileEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "itemsEntity", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ItemLikeEntity> likeEntities = new ArrayList<>();
 
     @Setter
     @ManyToOne(fetch=FetchType.LAZY)

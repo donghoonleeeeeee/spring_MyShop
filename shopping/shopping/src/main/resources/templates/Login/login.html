@@ -3,43 +3,67 @@
 <meta charset="UTF-8">
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/home/login.css}"></th:block>
 <th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
 
 <body>
 <th:block th:replace="~{../static/inc/top.html}"></th:block>
 
 <section>
-    <br>
-    <center><h1>L O G I N</h1></center>
 <form action="/login_proc" method="post" name="mf">
     <table class="login_table">
+
         <tr>
-            <td><b>회원 아이디</b></td>
+            <td class="login_title_td">
+                <h3 class="title_h3">
+                    <span class="login_title">LOGIN PAGE</span>
+                </h3>
+            </td>
         </tr>
 
         <tr>
-            <td><input type="text" name="userid" class="userid" placeholder="아이디를 입력해 주세요"></td>
+            <td>
+                <br>
+                <label class="userid_label">
+                    <span class="userid_span">&emsp;I &nbsp; D&emsp;&emsp;</span>
+                    <input type="text" name="userid" class="userid">
+                </label>
+            </td>
         </tr>
 
         <tr>
-            <td><br><b>비밀번호</b></td>
-        </tr>
-
-        <tr>
-            <td><input type="password" name="password" class="password" placeholder="비밀번호를 입력해 주세요"></td>
+            <td>
+                <br>
+                <label class="password_label">
+                    <span class="password_span" style="">PASS WORD&emsp;&emsp;</span>
+                    <input type="password" name="password" class="password">
+                </label>
+            </td>
         </tr>
 
         <tr>
             <td><br>
-                <input type="submit" value="로그인" class="login_btn" onclick="return login_ck()">
+                <input type="submit" value="L  O  G  I  N" class="login_btn" onclick="return login_ck()">
             </td>
         </tr>
 
         <tr>
-            <td align="right">
-                <a th:href="join">회원가입</a> / 아이디찾기 / 비밀번호찾기
+            <td><br>
+                <a th:href="@{/main/join}">
+                <input type="button" value="J O I N    U S" class="join_btn">
+                </a>
             </td>
         </tr>
+
+        <tr>
+            <td>
+                <div>
+                    <button type="button" name="search_userid" class="search_userid_btn"><span> S E A R C H &nbsp;<b>ID</b></span></button>
+                    <button type="button" name="search_password" class="search_password_btn"><span> S E A R C H &nbsp;<b>PW</b></span></button>
+                </div>
+            </td>
+        </tr>
+
     </table>
 </form>
     <br>
@@ -47,9 +71,12 @@
 
 <br><th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
-</html>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+window.onload = function()
+{
+    $(".login_table").fadeIn(600);
+}
 function login_ck()
     {
         if(mf.userid.value == "")
@@ -66,4 +93,4 @@ function login_ck()
         }
     }
 </script>
-
+</html>

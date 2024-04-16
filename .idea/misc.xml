@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="PDMPlugin">
+    <option name="customRuleSets">
+      <list>
+        <option value="C:\Users\YJ\Desktop\EgovInspectionRules_kor-3.8.xml" />
+      </list>
+    </option>
+    <option name="options">
+      <map>
+        <entry key="Statistics URL" value="" />
+        <entry key="Target JDK" value="17" />
+        <entry key="Threads" value="1" />
+      </map>
+    </option>
+    <option name="skipTestSources" value="false" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>

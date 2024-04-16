@@ -1,15 +1,14 @@
 <style>
 footer
 {
-    margin:0 auto;
-    width:70%;
+    position:relative;
+    width:100%;
+    bottom:0;
     text-align:center;
-    background-color:black;
-    color:white;
 }
 .customer
 {
-    background-color:dimgray;
-    text-align:left;
+    text-align:center;
+    font-size:12px;
 }
 </style>

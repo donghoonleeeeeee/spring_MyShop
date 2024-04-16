@@ -46,7 +46,7 @@ function checking()
 {
     var userid = $('#userid').val();
     $.ajax({
-        url : '/userid_check',
+        url : '/main/userid_check',
         data : {userid : userid},
         type : 'POST',
         dataType : 'json',

@@ -17,3 +17,14 @@ function move_page(value)
         location.href = '/admin/ItemList';
     }
 }
+
+function on_menu()
+{
+    $("#top_nav").fadeIn(600);
+}
+
+
+function off_menu()
+{
+    $("#top_nav").fadeOut(600);
+}
