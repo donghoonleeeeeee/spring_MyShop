@@ -1,0 +1,86 @@
+<style>
+.login_table
+{
+     margin:200px auto;
+     display:none;
+}
+.login_title_td
+{
+    text-align:left;
+}
+.title_h3
+{
+    margin:0 0 20px;
+    border-bottom:2px solid;
+    height:30px;
+    border-color:lightgray;
+}
+.login_title
+{
+    font-size:16px;
+    color:slategray;
+}
+.userid_label, .password_label
+{
+    border:2px solid #eee;
+    padding:10px;
+    color:black;
+}
+.userid_span, .password_span
+{
+    width:80px;
+    vertical-align:middle;
+    font-weight:bold;
+    font-size:15px;
+}
+.userid
+{
+    width:213px;
+    height:18px;
+    border:0;
+    font-size:14px;
+    color:#000;
+    background:transparent;
+}
+.password
+{
+    width:171px;
+    height:18px;
+    border:0;
+    font-size:14px;
+    color:#000;
+    background:transparent;
+}
+.login_btn
+{
+    background-color:black ;
+    border:black;
+    color:white;
+    width:323px;
+    height:45px;
+    font-size:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.join_btn
+{
+    background-color:#ddd;
+    border:#ddd;
+    color:black;
+    width:323px;
+    height:45px;
+    font-size:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+.search_userid_btn, .search_password_btn
+{
+    background-color:white;
+    border:1px solid #eee;
+    color:black;
+    height:35px;
+    width:158.5px;
+    font-size:12px;
+    cursor:pointer;
+}
+</style>

@@ -1,0 +1,67 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<header>
+    <div class="logo">
+        <a th:href="@{/home}"><img th:src="@{/image/Logo.jpg}" alt="none"></a>
+        <img th:src="@{/image/메뉴.png}" id="menu_btn" onclick="on_menu()" style="width:40px; height:40px; float:right;">
+    </div>
+
+    <div class="menu">
+        <th:block sec:authorize="isAnonymous()">
+            <b><a th:href="@{/login}">로그인</a></b>&emsp;&ensp;<b><a th:href="@{/join}">회원가입</a></b>
+        </th:block>
+
+        <th:block sec:authorize="hasRole('3')">
+            <b><a th:href="@{/logout}">로그아웃</a></b>
+        </th:block>
+
+        <th:block sec:authorize="hasRole('2')">
+            <b><a th:href="@{/logout}">로그아웃</a></b>&emsp;&ensp;
+            <b><a th:href="@{/User/MyPage}">마이페이지</a></b>&emsp;
+            <b><a th:href="@{/User/Basket}">장바구니</a></b>&emsp;
+            <b>배송조회</b>
+        </th:block>
+    </div>
+</header>
+
+<nav>
+    <div class="container">
+        <div class="intro">
+            <th:block sec:authorize="isAnonymous()">
+                <b>판매상품</b> &emsp; <b>행사상품</b> &emsp; <b>이벤트</b> &emsp; <b>커뮤니티</b>
+            </th:block>
+
+            <th:block sec:authorize="hasRole('3')">
+                <div class="admin_user_item">
+                    <!--<b><a th:href="@{/admin/ItemType}">상품관리</a></b>&emsp;-->
+                    <select name="item_manager" id="item_manager" class="item_manager" onmouseenter="this.size=4" onmouseleave="this.size=1" onchange="this.blur(), move_page(this.value)" onclick="move_page(this.value)">
+                        <option value="op0">상품관리</option>
+                        <option value="op1">상품분류</option>
+                        <option value="op2">상품등록</option>
+                        <option value="op3">상품목록</option>
+                    </select>
+                </div>
+
+                <div class="admin_user_list">
+                    <b><a th:href="@{/admin/UserList}"> 회원관리</a></b>&emsp;
+                </div>
+
+                <div class="admin_user_event">
+                    <b> 이벤트</b>&emsp;
+                </div>
+
+                <div class="admin_user_community">
+                    <b><a th:href="@{/admin/Community}"> 커뮤니티</a></b>
+                </div>
+            </th:block>
+
+            <th:block sec:authorize="hasRole('2')">
+                <b><a th:href="@{/User/ItemList}">판매상품</a></b> &emsp; <b>행사상품</b> &emsp; <b>이벤트</b> &emsp; <b>커뮤니티</b>
+            </th:block>
+        </div>
+        <div class="search">
+            <input type="text"><input type="button" value="🔍" class="search_button" onclick="search();">&emsp;
+        </div>
+    </div>
+</nav>
+<script src="/js/inc/Top.js"></script>

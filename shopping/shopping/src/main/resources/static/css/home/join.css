@@ -1,0 +1,88 @@
+<style>
+.title_td
+{
+    text-align:center;
+}
+.title
+{
+    font-size:35px;
+}
+.title_alert
+{
+    color:red;
+}
+.join_table
+{
+    margin:60px 720px;
+}
+.join_h3
+{
+    border-bottom:2px solid #eee;
+}
+.join_btn
+{
+    background-color:black ;
+    border:black;
+    color:white;
+    width:450px;
+    height:50px;
+    font-size:16px;
+}
+.userid:focus, .password:focus, .password_check:focus, .username:focus, .f_rrn:focus, .l_rrn:focus, .hp:focus, .add1:focus, .add2:focus, .add3:focus, .mail:focus
+{
+    border-color:#0982f0;
+    outline:none
+}
+.userid, .password, .password_check, .username, .f_rrn, .l_rrn, .hp, .add1, .add2, .add3, .mail
+{
+    border-top:0px;
+    border-right:0px;
+    border-left:0px;
+    outline:none;
+}
+
+.userid
+{
+    width:130px;
+}
+.password, .password_check, .hp
+{
+    width:200px;
+}
+.username, .web
+{
+    width:100px;
+}
+.f_rrn
+{
+    width:100px;
+}
+.l_rrn
+{
+    width:10px;
+}
+.add1
+{
+    width:60px;
+}
+.add2
+{
+    width:200px;
+}
+.add3
+{
+    width:60px;
+}
+.search_add
+{
+    border-color:black;
+    background-color:white;
+    height:30px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.web
+{
+    text-align:center;
+}
+</style>

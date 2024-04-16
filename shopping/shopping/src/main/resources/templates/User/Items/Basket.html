@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/User/Basket.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+<section>
+    <form>
+        <table class="Basket_table" style="margin:0 auto; width:90%">
+            <tr>
+                <td colspan="4" class="Basket_title"><h2>Shopping Basket</h2></td>
+            </tr>
+
+            <tr class="Basket_info">
+                <td class="Basket_info1">선택</td>
+                <td class="Basket_info2" style="">상품정보</td>
+                <td class="Basket_info3" style="">상품금액</td>
+                <td class="Basket_info4">배송</td>
+            </tr>
+
+            <tr th:each="list, listStat : ${list}" class="Basket_content">
+                <td>
+                    <input type="checkbox" th:id="sub_checkbox+${listStat.count}" th:onchange="change_box([[${listStat.count}]], [[${list.Basket_idx}]]), set_result([[${listStat.count}]], this.id)">
+                    <input type="checkbox" name="basket_idx" value="none" th:id="main_checkbox+${listStat.count}" checked style="display:none;">
+                    <input type="hidden" name="item_idx" th:value="${list.Item_idx}">
+                </td>
+                <td class="content_td1">
+                    <div class="content_div1">
+                        <img th:src="@{/tools/download(image = ${list.thumbnail})}" class="content_image">
+                    </div>
+                    <div class="content_name">&emsp;&ensp;&ensp;<b>제품명:</b>&emsp;</div>
+                    <div class="content_name_"><b>[[${list.ItemName}]]</b></div>
+                    <hr class="content_hr">
+                    <br>
+                    <div class="content_date">&emsp;&ensp;2024년 04월 05일 도착 예정</div>
+                    <div class="price_div">
+                        <div class="content_price">수량: <span th:id="content_quantity+${listStat.count}">[[${list.quantity}]]</span>개</div>
+                        <div class="price_controller">&emsp;
+                            <span style="cursor:pointer;" id="count_down" th:onclick="counted(this.id,[[${listStat.count}]],[[${list.price}]])">◀</span>
+                            <input type="number" name="item_quantity" class="price_tag" th:id="price_tag+${listStat.count}" th:value="${list.quantity}" readonly>
+                            <span style="cursor:pointer;" id="count_up" th:onclick="counted(this.id,[[${listStat.count}]],[[${list.price}]])">▶</span>
+                            &emsp;
+                        </div>
+                    </div>
+                </td>
+                <td><b><span class="price" th:id="price+${listStat.count}" th:text="${list.quantity} * ${list.price}"></span></b>원</td>
+                <td><b>무료</b></td>
+            </tr>
+
+
+            <tr>
+                <td colspan="4">
+                    <br><br>
+                    <hr>
+                    <div class="total_div">총 합계 금액: <b><span id="total_price">0</span></b>원</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="4" class="Basket_btn">
+                    <br>
+                    <button type="submit" formmethod="post" formaction="/User/Payment">구매하기</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <br>
+</section>
+
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/User/Basket.js"></script>
+</html>
+

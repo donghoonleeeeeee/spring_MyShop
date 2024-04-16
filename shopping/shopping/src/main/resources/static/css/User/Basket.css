@@ -1,0 +1,83 @@
+<style>
+.Basket_table
+{
+    text-align:center;
+}
+.Basket_title
+{
+    text-decoration:underline;
+    font-size:20px;
+}
+.Basket_info
+{
+    height:50px;
+}
+.Basket_info1, .Basket_info3, .Basket_info4
+{
+    width:100px;
+    font-size:18px;
+    font-weight:bold;
+}
+.Basket_info2
+{
+    width:600px;
+    font-weight:bold;
+    font-size:18px;
+}
+.Basket_content
+{
+    height:150px;
+}
+.content_td1
+{
+    border-bottom:1px solid;
+}
+.content_div1
+{
+    float:left;
+    border:1px solid;
+    width:100px;
+    height:100px;
+}
+.content_image
+{
+    width:100px;
+    height:100px;
+}
+.content_name, .content_price, .price_controller
+{
+    float:left;
+}
+.content_name_
+{
+    float:left;
+    height:30px;
+    font-size:16px;
+    color:slategray;
+}
+.content_hr
+{
+    background-color:gray;
+    height:1px;
+    width:85%;
+}
+.content_date
+{
+    float:left;
+    width:230px;
+}
+.price_div, .total_div
+{
+    float:right;
+}
+
+.price_tag
+{
+    width:15px;
+    text-align:center;
+}
+.Basket_btn
+{
+    text-align:right;
+}
+</style>
