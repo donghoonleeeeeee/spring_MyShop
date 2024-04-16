@@ -58,6 +58,10 @@ public class ItemsEntity {
                 .inventory(inventory)
                 .content(content)
                 .regdate(regdate)
+                .category1(categoryEntity.getName())
+                .image1(itemsFileEntities.get(0).getPath())
+                .image2(itemsFileEntities.get(1).getPath())
+                .image3(itemsFileEntities.get(2).getPath())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package portfolio1.Drink.Service;
 
+import portfolio1.Drink.DTO.Items.ItemsDTO;
 import portfolio1.Drink.DTO.Shopping.*;
 import portfolio1.Drink.DTO.Users.UserDTO;
 import portfolio1.Drink.Entity.Shopping.BasketEntity;
@@ -16,4 +17,5 @@ public interface ShoppingService
     void PayResult(OrderDTO orderDTO, DeliveryDTO deliveryDTO, Principal principal);
     boolean ItemLikes(Long idx, Principal principal);
     Integer LikeCount();
+    List<ItemsDTO> NewAddItems();
 }

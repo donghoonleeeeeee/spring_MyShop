@@ -3,6 +3,7 @@ package portfolio1.Drink;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import portfolio1.Drink.Repository.Community.CommentRepository;
 import portfolio1.Drink.Repository.Community.CommunityRepository;
 import portfolio1.Drink.Repository.Items.ItemCategoryRepository;
@@ -38,7 +39,7 @@ class DrinkApplicationTests {
 	@Test
 	void 카테고리()
 	{
-		System.out.println(itemLikesRepository.findByItemsEntity_idxAndUserid(27L,"new1").getRegdate());
+		System.out.println(itemsRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate")).get(0).getItem());
 	}
 
 

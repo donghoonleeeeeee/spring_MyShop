@@ -32,8 +32,9 @@ public class MainController
     private final Logger LOGGER = LoggerFactory.getLogger(MainController.class);
 
     @GetMapping("/home")
-    public String home()
+    public String home(Model model)
     {
+        model.addAttribute("NewItem",shoppingService.NewAddItems());
         return "Login/home";
     }
 

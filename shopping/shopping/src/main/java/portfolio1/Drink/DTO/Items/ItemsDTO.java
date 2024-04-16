@@ -29,6 +29,9 @@ public class ItemsDTO
     private String content; // 제품설명
     private String regdate; // 제품 등록일
     private String likes; // 추천
+    private String image1;
+    private String image2;
+    private String image3;
     private List<MultipartFile> files;
 
     public ItemsEntity toEntity()

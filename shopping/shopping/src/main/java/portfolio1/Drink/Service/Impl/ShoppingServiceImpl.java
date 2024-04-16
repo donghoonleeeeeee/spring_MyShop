@@ -3,15 +3,19 @@ package portfolio1.Drink.Service.Impl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import portfolio1.Drink.DTO.Items.ItemsDTO;
 import portfolio1.Drink.DTO.Shopping.*;
 import portfolio1.Drink.DTO.Users.UserDTO;
+import portfolio1.Drink.Entity.Items.ItemCategoryEntity;
 import portfolio1.Drink.Entity.Shopping.DeliveryEntity;
 import portfolio1.Drink.Entity.Shopping.ItemLikeEntity;
 import portfolio1.Drink.Entity.Items.ItemsEntity;
 import portfolio1.Drink.Entity.Shopping.OrderEntity;
 import portfolio1.Drink.Entity.Shopping.BasketEntity;
 import portfolio1.Drink.Entity.UserEntity;
+import portfolio1.Drink.Repository.Items.ItemCategoryRepository;
 import portfolio1.Drink.Repository.Items.ItemsRepository;
 import portfolio1.Drink.Repository.Shopping.BasketRepository;
 import portfolio1.Drink.Repository.Shopping.DeliveryRepository;
@@ -37,6 +41,7 @@ public class ShoppingServiceImpl implements ShoppingService
     private final OrderRepository orderRepository;
     private final DeliveryRepository deliveryRepository;
     private final ItemLikesRepository itemLikesRepository;
+    private final ItemCategoryRepository itemCategoryRepository;
     private final Logger LOGGER = LoggerFactory.getLogger(ItemsService.class);
     @Override
     public void InputBasket(BasketDTO basketDTO, Principal principal)
@@ -184,9 +189,22 @@ public class ShoppingServiceImpl implements ShoppingService
             return true;
         }
     }
-
+    @Override
     public Integer LikeCount()
     {
         return itemLikesRepository.findAll().size();
+    }
+
+    @Override
+    public List<ItemsDTO> NewAddItems()
+    {
+        List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate"));
+        List<ItemsDTO> dtos = new ArrayList<>();
+        for(int a=0; a<10; a++)
+        {
+            ItemsDTO dto = entities.get(a).toDTO();
+            dtos.add(dto);
+        }
+        return dtos;
     }
 }
