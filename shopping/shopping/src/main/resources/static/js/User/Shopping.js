@@ -6,7 +6,7 @@ function search_item()
     var category = category1 + "/" + category2 + "/" + category3;
     var keyword = document.getElementById("keyword").value;
 
-    location.href='/User/ItemList?category='+category+'&keyword='+keyword;
+    location.href='/main/ItemList?category='+category+'&keyword='+keyword;
 }
 
 function set_category2(value)

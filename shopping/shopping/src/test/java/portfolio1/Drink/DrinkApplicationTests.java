@@ -39,7 +39,7 @@ class DrinkApplicationTests {
 	@Test
 	void 카테고리()
 	{
-		System.out.println(itemsRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate")).get(0).getItem());
+		System.out.println(itemLikesRepository.BestItems().size());
 	}
 
 

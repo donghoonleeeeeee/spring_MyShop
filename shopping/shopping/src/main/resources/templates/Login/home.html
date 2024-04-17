@@ -122,30 +122,29 @@
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
 <script>
-    function change_image(value)
+function change_image(value)
+{
+    var count = parseInt(document.getElementById("image_count").value);
+    if(value == "prev")
     {
-        var count = parseInt(document.getElementById("image_count").value);
-        if(value == "prev")
+        if(count <= 3)
         {
-            if(count <= 3)
-            {
-                count = 4;
-            }
-            document.getElementById("image"+(count+2)).style.display = "none";
-            document.getElementById("image"+(count-3)).style.display = "block";
-            document.getElementById("image_count").value = count - 1;
+            count = 4;
         }
-        else if(value == "next")
-        {
-            if(count >= 7)
-            {
-                count = 7;
-            }
-            document.getElementById("image"+(count-2)).style.display = "none";
-            document.getElementById("image"+(count+3)).style.display = "block";
-            document.getElementById("image_count").value = count + 1;
-        }
-
+        document.getElementById("image"+(count+2)).style.display = "none";
+        document.getElementById("image"+(count-3)).style.display = "block";
+        document.getElementById("image_count").value = count - 1;
     }
+    else if(value == "next")
+    {
+        if(count >= 7)
+        {
+            count = 7;
+        }
+        document.getElementById("image"+(count-2)).style.display = "none";
+        document.getElementById("image"+(count+3)).style.display = "block";
+        document.getElementById("image_count").value = count + 1;
+    }
+}
 </script>
 </html>

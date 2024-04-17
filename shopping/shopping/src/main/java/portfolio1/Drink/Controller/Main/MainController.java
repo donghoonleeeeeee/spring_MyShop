@@ -104,7 +104,7 @@ public class MainController
         model.addAttribute("tag",itemsService.itemCategories(idx));
         model.addAttribute("item", itemsService.Items_view(idx));
         model.addAttribute("images",itemsService.Item_Images(idx));
-        model.addAttribute("likes",shoppingService.LikeCount());
+        model.addAttribute("likes",shoppingService.LikeCount(idx));
         return "Anonymous/ItemView";
     }
 

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import portfolio1.Drink.DTO.Items.ItemsDTO;
 import portfolio1.Drink.DTO.Shopping.*;
 import portfolio1.Drink.DTO.Users.UserDTO;
-import portfolio1.Drink.Entity.Items.ItemCategoryEntity;
 import portfolio1.Drink.Entity.Shopping.DeliveryEntity;
 import portfolio1.Drink.Entity.Shopping.ItemLikeEntity;
 import portfolio1.Drink.Entity.Items.ItemsEntity;
@@ -35,13 +34,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShoppingServiceImpl implements ShoppingService
 {
-    private final UserRepository userRepository;
     private final ItemsRepository itemsRepository;
+    private final ItemLikesRepository itemLikesRepository;
+
+    private final UserRepository userRepository;
     private final BasketRepository basketRepository;
     private final OrderRepository orderRepository;
     private final DeliveryRepository deliveryRepository;
-    private final ItemLikesRepository itemLikesRepository;
-    private final ItemCategoryRepository itemCategoryRepository;
+
     private final Logger LOGGER = LoggerFactory.getLogger(ItemsService.class);
     @Override
     public void InputBasket(BasketDTO basketDTO, Principal principal)
@@ -190,15 +190,15 @@ public class ShoppingServiceImpl implements ShoppingService
         }
     }
     @Override
-    public Integer LikeCount()
+    public Integer LikeCount(Long idx)
     {
-        return itemLikesRepository.findAll().size();
+        return itemLikesRepository.findByItemsEntity_idx(idx).size();
     }
 
     @Override
     public List<ItemsDTO> NewAddItems()
     {
-        List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.ASC,"regdate"));
+        List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.DESC,"idx"));
         List<ItemsDTO> dtos = new ArrayList<>();
         for(int a=0; a<10; a++)
         {
@@ -207,4 +207,5 @@ public class ShoppingServiceImpl implements ShoppingService
         }
         return dtos;
     }
+
 }

@@ -16,6 +16,6 @@ public interface ShoppingService
     UserDTO Users(Principal principal);
     void PayResult(OrderDTO orderDTO, DeliveryDTO deliveryDTO, Principal principal);
     boolean ItemLikes(Long idx, Principal principal);
-    Integer LikeCount();
+    Integer LikeCount(Long idx);
     List<ItemsDTO> NewAddItems();
 }

@@ -48,14 +48,14 @@
 
             <tr>
                 <td colspan="5" class="paging_td">
-                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/User/ItemList(page = 0,keyword = ${keyword}, category = ${category})}">⏪</a>
-                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/User/ItemList(page = ${nowPage - 2},keyword = ${keyword}, category = ${category})}">◀</a>
+                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/main/ItemList(page = 0,keyword = ${keyword}, category = ${category})}">⏪</a>
+                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/main/ItemList(page = ${nowPage - 2},keyword = ${keyword}, category = ${category})}">◀</a>
                     <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
-                        <a th:if="${page != nowPage} and ${endPage != 0}" th:href="@{/User/ItemList(page = ${page - 1},keyword = ${keyword}, category = ${category})}" th:text="${page}"></a>
+                        <a th:if="${page != nowPage} and ${endPage != 0}" th:href="@{/main/ItemList(page = ${page - 1},keyword = ${keyword}, category = ${category})}" th:text="${page}"></a>
                         <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
                     </th:block>
-                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/User/ItemList(page = ${nowPage},keyword = ${keyword}, category = ${category})}">▶</a>
-                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/User/ItemList(page = ${maxPage-1},keyword = ${keyword}, category = ${category})}">⏩</a>
+                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/main/ItemList(page = ${nowPage},keyword = ${keyword}, category = ${category})}">▶</a>
+                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/main/ItemList(page = ${maxPage-1},keyword = ${keyword}, category = ${category})}">⏩</a>
                 </td>
             </tr>
         </table>

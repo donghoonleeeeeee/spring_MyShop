@@ -2,6 +2,7 @@ package portfolio1.Drink.Entity.Shopping;
 
 import jakarta.persistence.*;
 import lombok.*;
+import portfolio1.Drink.DTO.Shopping.ItemLikeDTO;
 import portfolio1.Drink.Entity.Items.ItemsEntity;
 
 @Entity
@@ -28,4 +29,14 @@ public class ItemLikeEntity
     @Setter
     @Column
     private String regdate;
+
+    public ItemLikeDTO toDTO()
+    {
+        return ItemLikeDTO.builder()
+                .idx(idx)
+                .userid(userid)
+                .item_idx(itemsEntity.getIdx())
+                .regdate(regdate)
+                .build();
+    }
 }
