@@ -2,6 +2,13 @@
 .ItemList_table
 {
     text-align:center;
+    margin:50px 630px;
+    width:700px;
+    border:1px solid;
+}
+tr td
+{
+    border:1px solid;
 }
 .list_title
 {

@@ -10,13 +10,15 @@
 <th:block th:replace="~{../static/inc/top.html}"></th:block>
 
 <section>
-    <div class="ItemType">
-    <a th:href="@{/admin/ItemCategory}"><input type="button" name="ItemCategory" value="상품분류" class="type_btn"></a>
-    &emsp;
-    <a th:href="@{/admin/ItemRegister}"><input type="button" name="ItemRegister" value="상품등록" class="type_btn"></a>
-    &emsp;
-    <a th:href="@{/admin/ItemList}"><input type="button" name="Items" value="상품목록" class="type_btn"></a>
-    </div>
+        <div class="ItemType">
+            <div style="margin:150 600px;">
+            <a th:href="@{/admin/ItemCategory}"><input type="button" name="ItemCategory" value="상품분류" class="type_btn"></a>
+            &emsp;
+            <a th:href="@{/admin/ItemRegister}"><input type="button" name="ItemRegister" value="상품등록" class="type_btn"></a>
+            &emsp;
+            <a th:href="@{/admin/ItemList}"><input type="button" name="Items" value="상품목록" class="type_btn"></a>
+            </div>
+        </div>
 </section>
 
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
