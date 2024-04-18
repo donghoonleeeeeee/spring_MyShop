@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 
 
@@ -56,22 +57,27 @@
                 <tr>
                     <td style="text-align:center;">
                         <span style="font-weight:bold; font-size:22px; color:slategray;">WEEKLY BEST ITEMS</span><br>
-                        <span style="color:saddlebrown; font-size:14px;">한주간 베스트 아이템을 만나보세요.</span>
+                        <span style="color:saddlebrown; font-size:14px;">한주간 베스트 TOP5 아이템을 만나보세요.</span>
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <br>
                         <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; grid-column-gap:30px;">
-                            <div th:each="NewItem, NewItemStat : ${NewItem}" th:style="${NewItemStat.count > 5 ? 'display:none' : 'display:block'}" style="float:left;">
-                                <img th:src="@{/tools/download(image = ${NewItem.image1})}" style="width:300px; height:360px; border:1px solid; border-color:lightgray;">
+                            <div th:each="BestItem, BestItemStat : ${BestItem}" th:style="${BestItemStat.count > 5 ? 'display:none' : 'display:block'}" style="float:left;">
+                                <a th:href="@{/main/ItemView(idx = ${BestItem.idx})}">
+                                    <img th:src="@{/tools/download(image = ${BestItem.image1})}" style="width:300px; height:360px; border:1px solid; border-color:lightgray;">
+                                </a>
                                 <br>
-                                &emsp;<span th:text="${NewItem.item}" style="font-weight:bold; font-size:20px;"></span>
+                                &emsp;
+                                <a th:href="@{/main/ItemView(idx = ${BestItem.idx})}">
+                                <span th:text="${BestItem.item}" style="font-weight:bold; font-size:20px;"></span>
+                                </a>
                                 <hr style="margin:0 auto;">
                                 <div style="float:right;">
                                     &emsp;
                                     <span style="font-size:14px;">판매가:&ensp;</span>
-                                    <span th:text="${#numbers.formatInteger(NewItem.price, 3, 'COMMA')}" style="font-weight:bold;"></span>
+                                    <span th:text="${#numbers.formatInteger(BestItem.price, 3, 'COMMA')}" style="font-weight:bold;"></span>
                                     <span style="font-size:10px; font-weight:bold;">&ensp;WON</span>
                                 </div>
                             </div>
@@ -93,6 +99,7 @@
                 <tr>
                     <td>
                         <br>
+                        <!--
                         <div style="display:grid; grid-template-columns:1fr 1fr 1fr 1fr 1fr; grid-column-gap:30px;">
                             <div th:each="NewItem, NewItemStat : ${NewItem}" th:id="${'image'+NewItemStat.count}" th:style="${NewItemStat.count > 5 ? 'display:none' : 'display:block'}" style="float:left;">
                                 <img th:src="@{/tools/download(image = ${NewItem.image1})}" style="width:300px; height:360px; border:1px solid; border-color:lightgray;">
@@ -110,6 +117,38 @@
                             <input type="button" value="〈" onclick="change_image('prev')" style="position:absolute; margin:150px -50px; background-color:transparent; border-color:transparent; font-size:50px; color:slategray;">
                             <input type="button" value="〉" onclick="change_image('next')" style="position:absolute; margin:150px 1630px; background-color:transparent; border-color:transparent; font-size:50px; color:slategray;">
                         </div>
+                        -->
+                        <div class="swiper">
+                            <!-- Additional required wrapper -->
+                            <div class="swiper-wrapper">
+                                <!-- Slides -->
+                                <div th:each="NewItem, NewItemStat : ${NewItem}"  class="swiper-slide">
+                                    <a th:href="@{/main/ItemView(idx = ${NewItem.idx})}">
+                                    <img th:src="@{/tools/download(image = ${NewItem.image1})}" style="width:300px; height:360px; border:1px solid; border-color:lightgray;">
+                                    </a>
+                                    <br>
+                                    &emsp;
+                                    <a th:href="@{/main/ItemView(idx = ${NewItem.idx})}">
+                                    <span th:text="${NewItem.item}" style="font-weight:bold; font-size:20px;"></span>
+                                    </a>
+                                    <hr style="margin:0 auto;">
+                                    <div style="float:right;">
+                                        &emsp;
+                                        <span style="font-size:14px;">판매가:&ensp;</span>
+                                        <span th:text="${#numbers.formatInteger(NewItem.price, 3, 'COMMA')}" style="font-weight:bold;"></span>
+                                        <span style="font-size:10px; font-weight:bold;">&ensp;WON</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- If we need pagination -->
+                            <div class="swiper-pagination"></div>
+
+                            <!-- If we need navigation buttons -->
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-button-next"></div>
+
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -119,32 +158,62 @@
     <br>
 </section>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
 <script>
-function change_image(value)
-{
-    var count = parseInt(document.getElementById("image_count").value);
-    if(value == "prev")
-    {
-        if(count <= 3)
-        {
-            count = 4;
-        }
-        document.getElementById("image"+(count+2)).style.display = "none";
-        document.getElementById("image"+(count-3)).style.display = "block";
-        document.getElementById("image_count").value = count - 1;
+
+    var swiper = new Swiper('.swiper', {
+      loop:true,
+      slidesPerView: 5,
+      spaceBetween:70,
+      slidersOffsetBefore:70,
+      slidersOffsetAfter:70,
+      direction: getDirection(),
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on: {
+        resize: function () {
+          swiper.changeDirection(getDirection());
+        },
+      },
+    });
+
+    function getDirection() {
+      var windowWidth = window.innerWidth;
+      var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+
+      return direction;
     }
-    else if(value == "next")
+</script>
+
+
+<script>
+    function change_image(value)
     {
-        if(count >= 7)
+        var count = parseInt(document.getElementById("image_count").value);
+        if(value == "prev")
         {
-            count = 7;
+            if(count <= 3)
+            {
+                count = 4;
+            }
+            document.getElementById("image"+(count+2)).style.display = "none";
+            document.getElementById("image"+(count-3)).style.display = "block";
+            document.getElementById("image_count").value = count - 1;
         }
-        document.getElementById("image"+(count-2)).style.display = "none";
-        document.getElementById("image"+(count+3)).style.display = "block";
-        document.getElementById("image_count").value = count + 1;
+        else if(value == "next")
+        {
+            if(count >= 7)
+            {
+                count = 7;
+            }
+            document.getElementById("image"+(count-2)).style.display = "none";
+            document.getElementById("image"+(count+3)).style.display = "block";
+            document.getElementById("image_count").value = count + 1;
+        }
     }
-}
 </script>
 </html>

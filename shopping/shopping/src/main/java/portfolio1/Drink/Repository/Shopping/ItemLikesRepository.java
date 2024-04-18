@@ -12,6 +12,6 @@ public interface ItemLikesRepository extends JpaRepository<ItemLikeEntity, Long>
     ItemLikeEntity findByItemsEntity_idxAndUserid(Long idx, String userid);
     List<ItemLikeEntity> findByItemsEntity_idx(Long idx);
 
-    @Query(value = "select item_idx, count(item_idx) as count from item_likes group by item_idx order by count DESC", nativeQuery = true)
+    @Query(value = "select item_idx, count(item_idx) as count from item_likes group by item_idx order by count DESC fetch first 5 rows only", nativeQuery = true)
     List<Integer[]> BestItems();
 }

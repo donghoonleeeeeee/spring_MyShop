@@ -26,9 +26,7 @@ import portfolio1.Drink.Service.ShoppingService;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -154,30 +152,35 @@ public class ShoppingServiceImpl implements ShoppingService
     {
         Date now = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+        LOGGER.info("[추천] 아이템 idx 값 확인 / idx: "+idx);
         if(principal == null)
         {
+            LOGGER.info("[추천] 로그인 후 이용해주세요!");
             return false;
         }
         else
         {
+            LOGGER.info("[추천] 로그인 확인! / 아이디: "+principal.getName());
             List<ItemLikeEntity> list = itemLikesRepository.findAll();
-            List<Long> item_idx = new ArrayList<>();
-            List<String> userid = new ArrayList<>();
+            List<String> duplication = new ArrayList<>();
+            LOGGER.info("[추천] 이전 추천 이력을 확인합니다. ");
 
             for(int a=0; a<list.size(); a++)
             {
-                userid.add(list.get(a).getUserid());
-                item_idx.add(list.get(a).getItemsEntity().getIdx());
+                duplication.add(list.get(a).getUserid()+"/"+list.get(a).getItemsEntity().getIdx());
             }
 
-            if(item_idx.contains(idx) && userid.contains(principal.getName())) // 추천 목록에 userid가 있으면
+            if(duplication.contains(principal.getName()+"/"+idx)) // 추천 목록에 userid가 있으면
             {
+                LOGGER.info("[추천] 이전에 해당 물품에 추천을 한 이력이 있습니다. 추천을 취소합니다.");
                 ItemLikeEntity like = itemLikesRepository.findByItemsEntity_idxAndUserid(idx,principal.getName());
                 itemLikesRepository.delete(like);
+                LOGGER.info("[추천] 취소되었습니다!");
             }
             else
             {
+                LOGGER.info("[추천] 아이디 중복 확인");
+                LOGGER.info("[추천] 추천할 아이템 명: "+itemsRepository.findById(idx).orElse(null).getItem());
                 ItemLikeEntity likes = new ItemLikeEntity();
                 likes.setUserid(principal.getName());
                 likes.setItemsEntity(itemsRepository.findById(idx).orElse(null));
@@ -198,14 +201,32 @@ public class ShoppingServiceImpl implements ShoppingService
     @Override
     public List<ItemsDTO> NewAddItems()
     {
-        List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.DESC,"idx"));
+        List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.DESC,"regdate"));
         List<ItemsDTO> dtos = new ArrayList<>();
         for(int a=0; a<10; a++)
         {
             ItemsDTO dto = entities.get(a).toDTO();
             dtos.add(dto);
         }
+        
         return dtos;
     }
 
+    @Override
+    public List<ItemsDTO> BestItems()
+    {
+        List<Integer[]> list = itemLikesRepository.BestItems();
+        LOGGER.info("[Home Service] 베스트 상품 조회");
+        LinkedHashMap<Integer, Integer> best = new LinkedHashMap<>();
+        List<ItemsDTO> dtos = new ArrayList<>();
+
+        for(int a=0; a<list.size(); a++)
+        {
+            best.put(list.get(a)[0],list.get(a)[1]);
+            ItemsDTO dto = itemsRepository.findById(Long.valueOf(list.get(a)[0])).orElse(null).toDTO();
+            dtos.add(dto);
+        }
+        LOGGER.info("[Home Service] 정보 저장 중..");
+        return dtos;
+    }
 }

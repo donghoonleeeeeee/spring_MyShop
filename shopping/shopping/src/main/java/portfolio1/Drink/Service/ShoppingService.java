@@ -18,4 +18,5 @@ public interface ShoppingService
     boolean ItemLikes(Long idx, Principal principal);
     Integer LikeCount(Long idx);
     List<ItemsDTO> NewAddItems();
+    List<ItemsDTO> BestItems();
 }

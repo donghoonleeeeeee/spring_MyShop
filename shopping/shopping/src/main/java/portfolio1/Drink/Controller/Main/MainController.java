@@ -34,7 +34,9 @@ public class MainController
     @GetMapping("/home")
     public String home(Model model)
     {
+        LOGGER.info("[Home Screen] New Item Check / "+shoppingService.NewAddItems());
         model.addAttribute("NewItem",shoppingService.NewAddItems());
+        model.addAttribute("BestItem",shoppingService.BestItems());
         return "Login/home";
     }
 
