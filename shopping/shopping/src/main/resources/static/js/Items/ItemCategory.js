@@ -132,27 +132,9 @@ function set_data(value)
 
 function change_label1(value)
 {
-    var select2 = document.getElementById("category2");
-
-
-    var basic_option1 = document.createElement("option");
-    var basic_option2 = document.createElement("option");
-
-    if(value == "none")
+    if(value == "category1")
     {
-        $("#category2").empty();
         document.getElementById("category2").style.display = "none";
-        document.getElementById("category3").style.display = "none";
-
-        document.getElementById("label").value = "none";
-    }
-    else if(value == "category1")
-    {
-        document.getElementById("category2").value = "none";
-        document.getElementById("category2").style.display = "none";
-
-        document.getElementById("category3").value = "none";
-        document.getElementById("category3").style.display = "none";
 
         $.ajax({
         url : '/admin/LabelCheck',
@@ -161,7 +143,6 @@ function change_label1(value)
         dataType : 'json',
         success : function(result){
         document.getElementById("code").value = result;
-        $("#category2").empty();
         }
         });
     }
@@ -173,54 +154,57 @@ function change_label1(value)
         type : 'POST',
         dataType : 'json',
         success : function(result){
-                $("#category2").empty();
+                var ul = document.getElementById("dropdown-menu2");
+                $("#dropdown-menu2").empty();
 
-                basic_option1.text = "선택";
-                basic_option1.value = "none";
-                select2.add(basic_option1);
+                var basic_li1 = document.createElement("li");
+                var basic_button = document.createElement("button");
+                basic_button.className = "dropdown-item";
+                basic_button.setAttribute("data-bs-toggle","dropdown");
+                basic_button.setAttribute("aria-expanded","false");
+                basic_button.innerText = "2차 카테고리 추가";
+                basic_button.value = "category2";
+                basic_button.onclick = function(){change_label2(this.value, value)}
+                basic_li1.appendChild(basic_button);
 
-                basic_option2.text = "2차 분류";
-                basic_option2.value = "category2";
-                select2.add(basic_option2);
+                var basic_li2 = document.createElement("li");
+                var basic_hr = document.createElement("hr");
+                basic_hr.className = "dropdown-divider";
+                basic_li2.appendChild(basic_hr);
 
+                ul.appendChild(basic_li1);
+                ul.appendChild(basic_li2);
+                
                 for(var a=0; a<result.length; a++)
                 {
+                    var li = document.createElement("li");
+                    var button = document.createElement("button");
+                    button.className = "dropdown-item";
+                    button.onclick = function(){change_label2(this.value, value)}
+                    button.setAttribute("type","button");
+
                     if(result[a].split("/")[0].length == 4)
                     {
-                        var option = document.createElement("option");
-                        option.text = result[a].split("/")[1];
-                        option.value = result[a].split("/")[0];
-                        select2.add(option);
+                        button.value = result[a].split("/")[0];
+                        button.innerText = result[a].split("/")[1];
+                        li.appendChild(button);
+                        ul.appendChild(li);
+
                     }
                 }
-                document.getElementById("code").value = value;
+                document.getElementById("code").value = "none";
                 document.getElementById("category2").style.display = "inline";
         }
         });
     }
 }
 
-function change_label2(value)
+function change_label2(value, first)
 {
-    var first = document.getElementById("category1").value;
+    var first = first;
 
-    var select = document.getElementById("category3");
-    var option = document.createElement("option");
-
-    var basic_option1 = document.createElement("option");
-    var basic_option2 = document.createElement("option");
-
-    if(value == "none")
+    if(value == "category2")
     {
-        $("#category3").empty();
-        document.getElementById("category3").style.display = "none";
-        document.getElementById("label").value = first;
-    }
-    else if(value == "category2")
-    {
-        $("#category3").empty();
-        document.getElementById("category3").style.display = "none";
-
         $.ajax({
         url : '/admin/LabelCheck',
         data : {category : value, info : first},
@@ -233,49 +217,14 @@ function change_label2(value)
     }
     else
     {
-        $.ajax({
-        url : '/admin/SetLabel',
-        data : {code : value},
-        type : 'POST',
-        dataType : 'json',
-        success : function(result){
-
-                $("#category3").empty();
-
-                basic_option1.text = "선택";
-                basic_option1.value = "none";
-                select.add(basic_option1);
-
-                basic_option2.text = "3차 분류";
-                basic_option2.value = "category3";
-                select.add(basic_option2);
-
-                document.getElementById("code").value = value;
-                document.getElementById("category3").style.display = "inline";
-        }
-        });
-    }
-}
-
-function change_label3(value)
-{
-    var first = document.getElementById("category1").value;
-    var second = document.getElementById("category2").value;
-
-    if(value == "none")
-    {
-        document.getElementById("label").value = second;
-    }
-    else if(value == "category3")
-    {
-        $.ajax({
-        url : '/admin/LabelCheck',
-        data : {category : value, info : second},
-        type : 'POST',
-        dataType : 'json',
-        success : function(result){
-            document.getElementById("code").value = result;
-        }
-        });
+            $.ajax({
+            url : '/admin/LabelCheck',
+            data : {category : 'category3', info : value},
+            type : 'POST',
+            dataType : 'json',
+            success : function(result){
+                document.getElementById("code").value = result;
+            }
+            });
     }
 }

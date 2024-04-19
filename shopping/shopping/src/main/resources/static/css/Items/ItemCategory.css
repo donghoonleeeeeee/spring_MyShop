@@ -5,9 +5,12 @@
 }
 .code
 {
-    background-color:green;
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    border-radius: 5px;
     color:white;
-    width:50px;
+    width:90px;
+    font-size:20px;
     text-align:center;
 }
 .modify_table
