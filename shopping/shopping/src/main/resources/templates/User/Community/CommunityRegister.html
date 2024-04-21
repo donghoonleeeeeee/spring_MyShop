@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<meta charset="UTF-8">
+
+<th:block th:replace="~{../static/css/home/top.css}"></th:block>
+<th:block th:replace="~{../static/css/Community/CommunityRegister.css}"></th:block>
+<th:block th:replace="~{../static/css/home/bottom.css}"></th:block>
+<body>
+<th:block th:replace="~{../static/inc/top.html}"></th:block>
+
+<section>
+    <form method="post" action="/admin/CommunityRegister_proc" enctype="multipart/form-data">
+        <table class="register_table">
+            <tr>
+                <td class="register_subject" colspan="2"><h2>Board Register</h2></td>
+            </tr>
+
+            <tr>
+                <td class="register_td1"><b>작성자</b></td>
+                <td class="register_td2">&emsp;[[${name}]]</td>
+            </tr>
+
+            <tr>
+                <td class="register_td1"><b>제목</b></td>
+                <td class="register_td2"><input type="text" name="title" class="register_title"></td>
+            </tr>
+
+            <tr>
+                <td class="register_td1"><b>내용</b></td>
+                <td class="register_td2"><textarea name="content" class="content"></textarea></td>
+            </tr>
+
+            <tr>
+                <td class="register_td1"><b>첨부파일</b></td>
+                <td class="register_td2">
+                    <input type="file" name="files" id="register_file1" class="register_file" onchange="Preview1(this)">
+                    <input type="button" name="btn1" id="register_file_btn1" value="+" class="register_file_btn" onclick="file_click1()">
+                    <img class="Preview_image" id="image1" onclick="change_image1()">
+
+                    <input type="file" name="files" id="register_file2" class="register_file" onchange="Preview2(this)">
+                    <input type="button" name="btn1" id="register_file_btn2" value="+" class="register_file_btn" onclick="file_click2()">
+                    <img class="Preview_image" id="image2" onclick="change_image2()">
+
+                    <input type="file" name="files" id="register_file3" class="register_file" onchange="Preview3(this)">
+                    <input type="button" name="btn1" id="register_file_btn3" value="+" class="register_file_btn" onclick="file_click3()">
+                    <img class="Preview_image" id="image3" onclick="change_image3()">
+                </td>
+            </tr>
+
+            <tr>
+                <td class="register_btn_td" colspan="2">
+                    <input type="reset" value="다시쓰기" class="register_btn">
+                    <input type="submit" value="작성" class="register_btn">
+                </td>
+            </tr>
+        </table>
+    </form>
+</section>
+<th:block th:replace="~{../static/inc/bottom.html}"></th:block>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script th:inline="javascript" src="/js/Community/CommunityRegister.js"></script>
+</html>
+
