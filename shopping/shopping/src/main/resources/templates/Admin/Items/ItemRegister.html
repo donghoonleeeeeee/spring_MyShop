@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Category</title>
+</head>
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
 <th:block th:replace="~{../static/css/Items/ItemRegister.css}"></th:block>
@@ -11,81 +16,112 @@
 
 <section>
     <form action="/admin/ItemRegister_proc" method="post" enctype="multipart/form-data">
-    <table style="margin:50px 760px;">
+        <table style="margin:70px 500px; text-align:center; width:50%;">
+            <tr>
+                <td colspan="3">
+                    <span style="font-weight:bold; font-size:40px;">Register</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="category1" style="width:100px;">카테고리1</label>
+                        <select class="form-select" name="category1" id="category1" onchange="set_category2(this.value)" style="width:100px;">
+                            <option value="none" selected>선택</option>
+                            <th:block th:each="first : ${first}">
+                                <option th:text="${first.category_name}"
+                                        th:value="${first.code}"
+                                        th:selected="${first.code} == ${#strings.substring(code, 0, 2)}">
+                                </option>
+                            </th:block>
+                        </select>
+                    </div>
+                </td>
+                <td class="td1">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="category2" style="width:100px;">카테고리2</label>
+                        <select class="form-select" name="category2" id="category2" onchange="set_category3(this.value)" style="width:100px;">
+                            <option value="none" selected>선택</option>
+                        </select>
+                    </div>
+                </td>
+                <td class="td1">
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="category3" style="width:100px;">카테고리3</label>
+                        <select class="form-select" name="category3" id="category3" style="width:100px;">
+                            <option value="none" selected>선택</option>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1" colspan="3">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping1" style="width:100px;">제품명</span>
+                        <input type="text" name="item" class="form-control" aria-label="item" aria-describedby="addon-wrapping">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1" colspan="3">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping2" style="width:100px;">재고</span>
+                        <input type="text" name="inventory" class="form-control" aria-label="inventory" aria-describedby="addon-wrapping">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1" colspan="3">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping3" style="width:100px;">가격</span>
+                        <input type="text" name="price" class="form-control" aria-label="price" aria-describedby="addon-wrapping">
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1" colspan="3">
+                    <div class="input-group">
+                        <span class="input-group-text" style="width:100px;">제품설명</span>
+                        <textarea name="content" class="form-control" aria-label="With textarea" style="resize:none; height:200px;"></textarea>
+                    </div>
+                </td>
+            </tr>
+
         <tr>
-            <td colspan="10" class="col_td1">
-                <h2>상품 등록</h2>
+            <td colspan="3">
+                <div class="input-group">
+                    <!--<label for="formFile" class="form-label">Default file input example</label>-->
+                    <input class="form-control" type="file" id="formFile1" name="files">
+                </div>
             </td>
         </tr>
 
-        <tr>
-            <td class="td1">분류:</td>
-            <td class="td2">
-                <select name="category1" id="category1" onchange="set_category2(this.value)">
-                    <option value="none">선택</option>
-                    <th:block th:each="first : ${first}">
-                        <option th:text="${first.category_name}"
-                                th:value="${first.code}">
-                        </option>
-                    </th:block>
-                </select>
+            <tr>
+                <td colspan="3">
+                    <div class="input-group">
+                        <!--<label for="formFile" class="form-label">Default file input example</label>-->
+                        <input class="form-control" type="file" id="formFile2" name="files">
+                    </div>
+                </td>
+            </tr>
 
-                <select name="category2" id="category2" onchange="set_category3(this.value)">
-                    <option value="none">선택</option>
-                </select>
-
-                <select name="category3" id="category3">
-                    <option value="none">선택</option>
-                </select>
-            </td>
-        </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="input-group">
+                        <!--<label for="formFile" class="form-label">Default file input example</label>-->
+                        <input class="form-control" type="file" id="formFile3" name="files">
+                    </div>
+                </td>
+            </tr>
 
         <tr>
-            <td class="td1"><br>제품명</td>
-            <td class="td2"><br><input type="text" name="item" class="item_info"></td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>재고</td>
-            <td class="td2"><br>
-                <input type="text" name="inventory" id="inventory" class="item_info" onkeyup="comma1(this.value)">EA
-            </td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>가격</td>
-            <td class="td2"><br>
-                <input type="text" name="price" id="price" class="item_info" onkeyup="comma2(this.value)">원
-            </td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>제품설명</td>
-            <td class="td2"><br><textarea name="content" class="item_content"></textarea></td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>사진1</td>
-            <td class="td2"><br><input type="file" name="files"></td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>사진2</td>
-            <td class="td2"><br><input type="file" name="files"></td>
-        </tr>
-
-        <tr>
-            <td class="td1"><br>사진3</td>
-            <td class="td2"><br><input type="file" name="files"></td>
-        </tr>
-
-        <tr>
-            <td colspan="10" class="col_td2"><br>
-                <br><br>
-                <a th:href="@{/admin/ItemType}">
-                <input type="button" value="뒤로가기" class="back_btn">
-                </a>&emsp;
-                <input type="submit" value="업로드" class="item_btn">
+            <td colspan="3">
+                <input type="submit" value="업로드" class="btn btn-secondary" style="width:100%;">
             </td>
         </tr>
     </table>
@@ -95,6 +131,7 @@
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script th:inline="javascript" src="/js/Items/ItemRegister.js"></script>
 </html>
 

@@ -106,3 +106,16 @@ function set_category3(value)
         });
     }
 }
+function change_value(value)
+{
+    var result = document.getElementById("check"+value).value;
+
+    if(result == "0")
+    {
+        document.getElementById("check"+value).value = value;
+    }
+    else
+    {
+        document.getElementById("check"+value).value = "0"
+    }
+}

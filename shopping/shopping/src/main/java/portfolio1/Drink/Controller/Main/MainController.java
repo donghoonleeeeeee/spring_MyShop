@@ -15,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import portfolio1.Drink.DTO.Users.UserDTO;
 import portfolio1.Drink.Entity.Items.ItemsEntity;
-import portfolio1.Drink.Service.ItemsService;
-import portfolio1.Drink.Service.JoinService;
-import portfolio1.Drink.Service.ShoppingService;
+import portfolio1.Drink.Service.*;
 
 import java.security.Principal;
 
@@ -116,4 +114,6 @@ public class MainController
     {
         return shoppingService.ItemLikes(Long.valueOf(idx), principal);
     }
+
+
 }

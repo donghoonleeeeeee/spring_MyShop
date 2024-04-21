@@ -1,7 +1,6 @@
 <style>
 .Community_title
 {
-    text-decoration:underline;
     text-align:center;
 }
 .border_post, .border_index, .border_views
@@ -11,7 +10,7 @@
     text-align:center;
     font-size:18px;
 }
-.border_post_, .border_index_, .border_views_, .border_title_, .border_writer_, .Community_btn
+.border_post_, .border_index_, .border_views_, .border_title_, .border_writer_
 {
     text-align:center;
 }
@@ -29,17 +28,6 @@
     font-weight:bold;
     text-align:center;
     font-size:18px;
-}
-.write_btn
-{
-    width:75px;
-    height:30px;
-    border-top:0px;
-    border-left:0px;
-    border-right:0px;
-    background-color:white;
-    font-size:18px;
-    font-weight:bold;
 }
 .type1, .type2, .type3
 {

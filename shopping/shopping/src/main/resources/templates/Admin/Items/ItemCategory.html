@@ -15,19 +15,33 @@
 <th:block th:replace="~{../static/inc/top.html}"></th:block>
 
 <section>
-    <div style="margin:100px auto;">
-        <div>
-            <form action="/admin/CategoryRegister" method="post">
-                <table style="margin:0 auto; border:1px solid; width:80%;">
+    <div class="section_div">
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true"><b>Register</b></button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false"><b>Controller</b></button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+
+            <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                <br><br>
+                <form action="/admin/CategoryRegister" method="post">
+                <table class="register_table">
 
                     <tr>
-                        <td colspan="5" style="text-align:center;">
-                            <span style="font-weight:bold; font-size:24px;">Category</span>
+                        <td colspan="5" class="register_title">
+                            <span class="register_title_span1">Register</span>
+                            <span class="register_title_span2">분류 추가</span>
                         </td>
                     </tr>
 
                     <tr>
-                        <td style="text-align:center;">
+                        <td class="category1_td">
                             <div class="btn-group dropend">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">1차 카테고리</button>
                                 <ul class="dropdown-menu">
@@ -38,9 +52,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </td>
-
-                        <td>
+                            &emsp;
                             <div class="btn-group dropend" id="category2" style="display:none;">
                                 <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">2차 카테고리</button>
                                 <ul class="dropdown-menu" id="dropdown-menu2">
@@ -49,41 +61,54 @@
                                 </ul>
                             </div>
                         </td>
+                    </tr>
 
+                    <tr>
                         <td>
                             <input type="text" name="code" id="code" class="code" value="none" readonly>
-                            <input type="text" name="category_name" id="category_name">
+                            <input type="text" name="category_name" id="category_name" class="category_name" placeholder="카테고리 이름">
+                            <input type="button" class="btn btn-secondary" value="등록" style="vertical-align:top; height:40px; font-weight:bold;">
                         </td>
-                        <td><input type="button" value="등록"></td>
                     </tr>
                 </table>
-            </form>
-        </div>
+                </form>
+            </div>
 
         <br><br>
-        <div>
-            <table class="modify_table" style="margin:0 600px;">
+            <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+            <table class="modify_table">
                 <tr>
-                    <td colspan="3" class="modify_title"><h2>Category List</h2></td>
+                    <td colspan="4" class="modify_title_td">
+                        <span class="modify_title_span1">Controller</span>
+                        <span class="modify_title_span2">분류 수정&삭제</span>
+                    </td>
                 </tr>
 
                 <tr>
-                    <td class="modify_code_info" colspan="3">
+                    <td class="modify_code_info" colspan="3" style="height:100px;">
                         <form>
-                        <input type="text" name="modify_code" id="modify_code" class="modify_code" readonly>
+                        <input type="text" name="modify_code" id="modify_code" class="modify_code" value="none" readonly>
                         <input type="text" name="modify_name" id="modify_name" class="modify_name">
-                            <button type="submit" formaction="/admin/Category_modify" formmethod="post">수정</button>
-                            <button type="submit" formaction="/admin/Category_delete" formmethod="post" onclick="return category_check()">삭제</button>
+                            <button type="submit" class="btn btn-secondary" formaction="/admin/Category_modify" formmethod="post" style="height:40px; vertical-align:top;">수정</button>
+                            <button type="submit" class="btn btn-secondary" formaction="/admin/Category_delete" formmethod="post" onclick="return category_check()" style="height:40px; vertical-align:top;">삭제</button>
                         </form>
                     </td>
                 </tr>
 
                 <tr>
+                    <td><span><b>1차 카테고리</b></span></td>
+                    <td><span><b>2차 카테고리</b></span></td>
+                    <td><span><b>3차 카테고리</b></span></td>
+                </tr>
+
+                <tr>
                     <td class="first_td" id="first_td">
+                        <div>
                         <th:block th:each="first, firstStat : ${first}">
                             <span th:id="first+${firstStat.count}" th:text="${first.category_name}" class="first_class" th:onclick="set_second([[${first.code}]],this.id,[[${first.category_name}]])"></span>
                             <br><br>
                         </th:block>
+                        </div>
                     </td>
 
                     <td id="second_td" class="second_td">
@@ -96,6 +121,7 @@
                 </tr>
             </table>
         </div>
+    </div>
     </div>
 </section>
 

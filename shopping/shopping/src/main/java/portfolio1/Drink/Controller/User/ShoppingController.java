@@ -74,6 +74,11 @@ public class ShoppingController
         return "User/Items/MyPage";
     }
 
+    @GetMapping("/Order")
+    public String OrderCheck()
+    {
+        return "User/Items/OrderCheck";
+    }
     @GetMapping("/test")
     public String test()
     {

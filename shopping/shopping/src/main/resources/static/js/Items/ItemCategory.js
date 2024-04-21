@@ -64,6 +64,7 @@ function set_second(code, id, name)
                         second_data.innerHTML = result[a].split("/")[1];
                         second_data.id = result[a];
                         second_data.className = 'second_class';
+                        second_data.style = 'cursor:pointer';
                         second_data.onclick = function(){set_third(this.id)};
 
 
@@ -107,6 +108,7 @@ function set_third(value) // value : 1010/한국, 1020/일본 ... (code + name)
                     third_data.innerHTML = result[a].split("/")[1];
                     third_data.id = result[a];
                     third_data.className = 'third_class';
+                    third_data.style = 'cursor:pointer';
                     third_data.onclick = function(){set_data(this.id)}
 
                     third_area.append(third_data);

@@ -1,5 +1,38 @@
 <style>
-.category2, .category3, .second, .third
+.section_div
+{
+    padding:30px;
+}
+.register_table
+{
+    width:80%;
+    text-align:center;
+    margin:0 auto;
+}
+.register_title, .category1_td
+{
+    height:100px;
+    vertical-align:top;
+}
+.register_title_span1, .modify_title_span1
+{
+    font-weight:bold;
+    font-size:35px;
+}
+.register_title_span2, .modify_title_span2
+{
+    color:slategray;
+    font-weight:bold;
+    font-size:14px;
+}
+.category_name
+{
+    vertical-align:top;
+    height:40px;
+    text-align:center;
+    border-radius:5px;
+}
+.category2, .second
 {
     display:none;
 }
@@ -12,27 +45,48 @@
     width:90px;
     font-size:20px;
     text-align:center;
+    height:40px;
 }
 .modify_table
 {
     width:600px;
-}
-.modify_title, .modify_code_info
-{
+    margin:0 auto;
     text-align:center;
 }
+.modify_title_td, .modify_code_info
+{
+    height:100px;
+    vertical-align:top;
+}
+
 .first_td, .second_td, .third_td
 {
     width:33%;
-    text-align:center;
     height:150px;
+    border:1px solid;
 }
 .modify_code
 {
-    width:70px;
+    width:100px;
+    height:40px;
+    border-radius:5px;
+    background-color:cornflowerblue;
+    border-color:cornflowerblue;
+    color:white;
+    font-weight:bold;
+    font-size:20px;
+    text-align:center;
 }
 .modify_name
 {
     width:100px;
+    height:40px;
+    border-radius:5px;
+    vertical-align:top;
+    text-align:center;
+}
+.first_class
+{
+    cursor:pointer;
 }
 </style>

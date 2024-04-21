@@ -20,7 +20,7 @@
 
         <tr>
             <td colspan="5" class="list_title">
-                <h2>등록된 상품 목록</h2>
+                <span style="font-weight:bold; font-size:40px;">Items</span>
             </td>
         </tr>
 
@@ -60,7 +60,7 @@
         <tr th:each="list : ${item_list}" id="item_list">
             <td>
                 <input type="checkbox" id="check" name="check" th:value="${list.idx}" onclick="change_value(this.value)">
-                <input type="checkbox" th:id="${list.idx}" name="item_check" value="0" checked style="display:none;">
+                <input type="checkbox" th:id="'check'+${list.idx}" name="item_check" value="0" checked style="display:none;">
             </td>
             <td><img th:src="@{/tools/thum_download(image = 'thum_'+${list.itemsFileEntities.get(0).path})}" width="150px" height="150px;"></td>
             <td align="center"><a th:href="@{/admin/ItemsModify(idx = ${list.idx})}">[[${list.item}]]</a></td>
@@ -93,17 +93,12 @@
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-
                 </ul>
             </td>
         </tr>
 
         <tr>
             <td colspan="5" class="list_btn">
-                <br>
-                <a th:href="@{/admin/ItemType}">
-                <input type="button" value="뒤로" class="type_back">
-                </a>&emsp;
                 <button type="submit" formaction="/admin/List_modify" class="modify_btn" formmethod="post">수정</button>&emsp;
                 <button type="submit" formaction="/admin/List_delete" class="delete_btn" formmethod="post">삭제</button>
                 <br><br>

@@ -39,12 +39,12 @@ function select_type(value)
 {
     var type = value;
     $.ajax({
-        url : '/admin/Community',
+        url : '/main/Community',
         data : {type : type},
         type : 'GET',
         dataType : 'text',
         success : function(result){
-            location.href='/admin/Community?type='+type;
+            location.href='/main/Community?type='+type;
         },
         error : function(request, error){
                     alert("code: " + request.status + "\n" + "message: " + request.responseText + "\n" + "error: " + error);

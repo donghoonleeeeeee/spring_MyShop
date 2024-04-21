@@ -27,12 +27,6 @@ public class ItemController
     private final ItemsService itemsService;
     private final ToolsService toolsService;
 
-    @GetMapping("/ItemType")
-    public String item_type()
-    {
-        return "Admin/Items/ItemType";
-    }
-
     @GetMapping("/ItemRegister")
     public String item_register(Model model)
     {

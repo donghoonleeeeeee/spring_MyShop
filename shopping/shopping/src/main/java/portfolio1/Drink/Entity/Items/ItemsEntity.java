@@ -51,6 +51,16 @@ public class ItemsEntity {
 
     public ItemsDTO toDTO()
     {
+        List<String> path = new ArrayList<>();
+        path.add(itemsFileEntities.get(0).getPath());
+        path.add(itemsFileEntities.get(1).getPath());
+        path.add(itemsFileEntities.get(2).getPath());
+
+        List<String> origin = new ArrayList<>();
+        origin.add(itemsFileEntities.get(0).getOrigin());
+        origin.add(itemsFileEntities.get(1).getOrigin());
+        origin.add(itemsFileEntities.get(2).getOrigin());
+
         return ItemsDTO.builder()
                 .idx(idx)
                 .item(item)
@@ -62,6 +72,8 @@ public class ItemsEntity {
                 .image1(itemsFileEntities.get(0).getPath())
                 .image2(itemsFileEntities.get(1).getPath())
                 .image3(itemsFileEntities.get(2).getPath())
+                .path(path)
+                .origin(origin)
                 .build();
     }
 

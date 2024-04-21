@@ -10,6 +10,7 @@ import portfolio1.Drink.Entity.Items.ItemsEntity;
 import portfolio1.Drink.Entity.Items.ItemsFileEntity;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -33,6 +34,9 @@ public class ItemsDTO
     private String image2;
     private String image3;
     private List<MultipartFile> files;
+
+    private List<String> path;
+    private List<String> origin;
 
     public ItemsEntity toEntity()
     {
