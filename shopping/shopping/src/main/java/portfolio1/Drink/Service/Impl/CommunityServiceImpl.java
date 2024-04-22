@@ -151,12 +151,12 @@ public class CommunityServiceImpl implements CommunityService
         if(cookie_list.contains("login")) // 로그인을 했지만 해당 페이지 쿠키가 없으면
         {
             LOGGER.info("[커뮤니티] 로그인 쿠키 확인 / Cookie 존재 여부: "+cookie_list.contains("login"));
-            if(!cookie_list.contains(String.valueOf(idx)))
+            if(!cookie_list.contains("community"+idx))
             {
                 LOGGER.info("[커뮤니티] 게시물 조회수 쿠키 확인 / Cookie 존재 여부: "+cookie_list.contains(String.valueOf(idx)));
-                Cookie cookie = new Cookie("community"+idx,String.valueOf(idx));
+                Cookie cookie = new Cookie("community"+idx,"community"+idx);
                 cookie.setDomain("localhost");
-                cookie.setPath("/admin/CommunityView");
+                cookie.setPath("/main/CommunityView");
                 cookie.setMaxAge(60*60);
                 cookie.setSecure(true);
                 cookie.setHttpOnly(true);

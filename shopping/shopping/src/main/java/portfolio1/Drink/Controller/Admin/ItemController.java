@@ -38,7 +38,7 @@ public class ItemController
     public String item_register_proc(ItemsDTO itemsDTO, HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         itemsService.input_items(itemsDTO); // DB에 등록
-        return "redirect:/admin/ItemType";
+        return "redirect:/admin/ItemRegister";
     }
 
     @GetMapping("/ItemList")

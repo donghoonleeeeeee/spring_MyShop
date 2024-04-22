@@ -44,11 +44,20 @@ public class ShoppingServiceImpl implements ShoppingService
     @Override
     public void InputBasket(BasketDTO basketDTO, Principal principal)
     {
-        ItemsEntity item = itemsRepository.findById(basketDTO.getItem_idx()).orElse(null);
-        LOGGER.info("[장바구니] 새로운 물품을 등록합니다. / 제품명: "+item.getItem()+", 수량: "+basketDTO.getQuantity());
-        basketDTO.setUserid(principal.getName());
-        BasketEntity basket = basketDTO.toEntity();
-        basket.setItemsEntity(item);
+        BasketEntity basket = null;
+        if(basketRepository.findByItemsEntity_Idx(basketDTO.getItem_idx()).isEmpty())
+        {
+            ItemsEntity item = itemsRepository.findById(basketDTO.getItem_idx()).orElse(null);
+            LOGGER.info("[장바구니] 새로운 물품을 등록합니다. / 제품명: "+item.getItem()+", 수량: "+basketDTO.getQuantity());
+            basketDTO.setUserid(principal.getName());
+            basket = basketDTO.toEntity();
+            basket.setItemsEntity(item);
+        }
+        else
+        {
+            basket = basketRepository.findByItemsEntity_Idx(basketDTO.getItem_idx()).get(0);
+            basket.setQuantity(basket.getQuantity()+basketDTO.getQuantity());
+        }
         basketRepository.save(basket);
     }
 

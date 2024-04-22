@@ -40,7 +40,7 @@ public class ShoppingController
     public String Basket_proc(BasketDTO basketDTO, Principal principal)
     {
         shoppingService.InputBasket(basketDTO, principal);
-        return "redirect:/User/ItemView?idx="+basketDTO.getItem_idx();
+        return "redirect:/Anonymous/ItemView?idx="+basketDTO.getItem_idx();
     }
 
     @GetMapping("/Basket")

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Category</title>
+</head>
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
 <th:block th:replace="~{../static/css/Community/CommunityView.css}"></th:block>
@@ -11,71 +16,110 @@
 
 <section>
     <form name="mf1">
-    <table>
+    <table style="width:50%; margin:100px 500px;">
         <tr>
-            <td colspan="4" class="view_subject">
-                <h2><span th:if="${view.type == '공지'}"><b>Announce</b></span></h2>
+            <td colspan="2" style="text-align:center;">
+                <h2><span th:if="${view.type == '공지'}">Announce</span></h2>
                 <h2><span th:if="${view.type == '리뷰'}"><b>Review</b></span></h2>
             </td>
         </tr>
 
         <tr>
-            <td class="view_td1">번호</td>
-            <td><span th:text="${view.idx}"></span><input type="hidden" name="idx" th:value="${view.idx}"></td>
-            <td class="view_td1">작성일</td>
-            <td><span th:text="${view.regdate}"></span></td>
-        </tr>
+            <td>
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping1" style="width:90px;">번호</span>
+                        <span class="form-control" th:text="${view.idx}"></span>
+                    </div>
+                </ul>
+            </td>
 
-        <tr>
-            <td class="view_td1">작성자</td>
-            <td><span th:text="${view.name}"></span><input type="hidden" name="name" th:value="${view.name}"></td>
-        </tr>
-
-        <tr>
-            <td class="view_td1">제목</td>
-            <td colspan="3"><span th:text="${view.title}"></span></td>
-        </tr>
-
-        <tr>
-            <td class="view_content_td">내용</td>
-            <td colspan="3">
-                <div>
-                <th:block th:each="path, pathStat : ${view.path}">
-                <img th:if="${path != 'none'}" th:src="@{/tools/review(image=${path})}" th:id="image+${pathStat.count}" onmouseenter="zoomIn(this.id)" onmouseleave="zoomOut(this.id)" class="image_tag">
-                </th:block>
-                </div>
-                <br><br><br>
-                <div>
-                <span th:text="${view.content}"></span>
-                </div>
+            <td>
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping2" style="width:90px;">작성일</span>
+                        <span class="form-control" th:text="${view.regdate}"></span>
+                    </div>
+                </ul>
             </td>
         </tr>
 
         <tr>
+            <td colspan="2">
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping3" style="width:90px;">작성자</span>
+                        <span class="form-control" th:text="${view.name}"></span>
+                    </div>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping4" style="width:90px;">제목</span>
+                        <span class="form-control" th:text="${view.title}"></span>
+                    </div>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping5" style="width:90px;">내용</span>
+                        <span class="form-control" style="resize:none; height:200px;">[[${view.content}]]</span>
+                    </div>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" id="addon-wrapping6" style="width:90px;">첨부파일</span>
+                        <div class="form-control">
+                            <th:block th:each="path, pathStat : ${view.path}">
+                                <img th:if="${path != 'none'}" th:src="@{/tools/review(image=${path})}" th:id="image+${pathStat.count}" onmouseenter="zoomIn(this.id)" onmouseleave="zoomOut(this.id)" class="image_tag">
+                            </th:block>
+                        </div>
+                    </div>
+                </ul>
+            </td>
+        </tr>
+        <tr>
             <td colspan="4" class="view_btn_td">
-                <a th:href="@{/admin/Community}"><input type="button" value="목록" class="view_btn"></a>&emsp;
-                <a th:href="@{/admin/CommunityModify(idx=${view.idx})}"><input type="button" value="수정" class="view_btn"></a>&emsp;
-                <input type="button" value="삭제" class="view_btn">
+                <a th:href="@{/main/Community}"><input type="button" value="목록" class="btn btn-secondary"></a>&emsp;
+                <a th:href="@{/main/CommunityModify(idx=${view.idx})}"><input type="button" value="수정" class="btn btn-secondary"></a>&emsp;
+                <input type="button" value="삭제" class="btn btn-secondary">
             </td>
         </tr>
     </table>
     </form>
 
     <form name="mf2">
-        <table>
+        <table style="width:50%; margin:100px 500px;">
             <tr>
-                <td class="Comment_subject">
-                    <h2><b>Comment</b></h2>
+                <td style="text-align:center;">
+                    <h2>Comment</h2>
                 </td>
             </tr>
 
             <tr>
                 <td class="Comment_td1">
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:90px;">댓글</span>
+                            <textarea name="content" class="form-control" aria-label="With textarea" style="resize:none; height:50px;"></textarea>
+                            <button type="submit" th:formaction="@{/main/Comment_proc}" formmethod="get" class="btn btn-secondary" onclick="return Comment()">입력</button>
+                        </div>
+                    </ul>
                     <input type="hidden" name="community_idx" th:value="${view.idx}">
                     <input type="hidden" name="comment_idx" id="comment_idx" value="0">
-                    <span><textarea name="content" id="Comment_content_box"  class="Comment_content_box"></textarea></span>&emsp;
-                    <button type="submit" th:formaction="@{/admin/Comment_proc}" formmethod="get" class="Comment_register_btn" onclick="return Comment()">입력</button>
-                    <br><br>
                 </td>
             </tr>
 
@@ -86,21 +130,32 @@
                     <div class="Comment_content"><b>내용</b>: <span th:text="${comment.content}"></span></div><hr>
                     <div class="Comment_option" style="text-align:right;">
                         <span th:id="${comment.content}" th:key="${comment.idx}" onclick="change_content(this.getAttribute('key'), this.id)"><b>수정</b></span>&emsp;
-                        <span><b><a th:href="@{/admin/CommentDelete(comment_idx=${comment.idx},community_idx=${view.idx})}">삭제</a></b></span>
+                        <span><b><a th:href="@{/main/CommentDelete(comment_idx=${comment.idx},community_idx=${view.idx})}">삭제</a></b></span>
                     </div>
                 </td>
             </tr>
 
             <tr>
-                <td colspan="5" style="text-align:center;">
-                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = 0, idx = ${view.idx})}">⏪</a>
-                    <a th:if="${nowPage != startPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${nowPage - 2}, idx = ${view.idx})}">◀</a>
-                    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
-                        <a th:if="${page != nowPage} and ${page !=  0}" th:href="@{/admin/CommunityView(page = ${page - 1}, idx = ${view.idx})}" th:text="${page}"></a>
-                        <strong th:if="${page == nowPage}" th:text="${page}" style="color : red"></strong>
-                    </th:block>
-                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${nowPage}, idx = ${view.idx})}">▶</a>
-                    <a th:if="${nowPage != endPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${maxPage-1}, idx = ${view.idx})}">⏩</a>
+                <td>
+                    <br>
+                    <ul class="pagination" style="display:flex; justify-content:center;">
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/main/CommunityView(page = ${nowPage - 2}, idx = ${view.idx})}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
+                            <li class="page-item">
+                                <a class="page-link" th:if="${page != nowPage} and ${endPage != 0}" th:href="@{/admin/CommunityView(page = ${page - 1}, idx = ${view.idx})}" th:text="${page}"></a>
+                                <a class="page-link" th:if="${page == nowPage}" href="#" th:text="${page}" style="font-weight : bold;"></a>
+                            </li>
+                        </th:block>
+                        <li class="page-item">
+                            <a class="page-link" th:href="@{/main/CommunityView(page = ${nowPage}, idx = ${view.idx})}">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
                 </td>
             </tr>
         </table>
@@ -109,6 +164,7 @@
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script th:inline="javascript" src="/js/Community/CommunityView.js"></script>
 </html>
 

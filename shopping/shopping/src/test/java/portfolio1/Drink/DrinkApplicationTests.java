@@ -39,7 +39,7 @@ class DrinkApplicationTests {
 	@Test
 	void 카테고리()
 	{
-		System.out.println(itemLikesRepository.BestItems().size());
+		System.out.println(basketRepository.findByItemsEntity_Idx(24L).size());
 	}
 
 

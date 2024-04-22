@@ -78,21 +78,19 @@
 
         <tr>
             <td colspan="5" style="text-align:center;">
+                <br>
                 <ul class="pagination" style="display:flex; justify-content:center;">
-
                     <li class="page-item">
                         <a class="page-link" th:href="@{/main/Community(page = ${nowPage - 2}, type = ${type})}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-
                     <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" style="margin:0 auto;">
                         <li class="page-item">
                             <a class="page-link" th:if="${page != nowPage} and ${endPage != 0}" th:href="@{/main/Community(page = ${page - 1}, type = ${type})}" th:text="${page}"></a>
                             <a class="page-link" th:if="${page == nowPage}" href="#" th:text="${page}" style="font-weight : bold;"></a>
                         </li>
                     </th:block>
-
                     <li class="page-item">
                         <a class="page-link" th:href="@{/main/Community(page = ${nowPage}, type = ${type})}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
