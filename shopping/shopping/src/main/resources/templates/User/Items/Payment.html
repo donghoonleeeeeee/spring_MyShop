@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Category</title>
+</head>
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
 <th:block th:replace="~{../static/css/User/Basket.css}"></th:block>
@@ -10,171 +15,311 @@
 <th:block th:replace="~{../static/inc/top.html}"></th:block>
 <section>
     <form action="/User/PayResult" method="post">
-    <table style="text-align:center;"> <!-- 장바구니에서 결제로 넘긴 물품 목록 -->
-        <tr>
-            <td colspan="4" style="text-decoration:underline;">
-                <h2>Order Info</h2>
-            </td>
-        </tr>
+        <table style="text-align:center; margin:100px 500px; width:50%;"> <!-- 장바구니에서 결제로 넘긴 물품 목록 -->
+            <tr>
+                <td colspan="4">
+                    <h2>Order Info</h2>
+                </td>
+            </tr>
 
-        <tr>
-            <td style="width:100px;"><b>구분</b></td>
-            <td style="width:200px;"><b>제품명</b></td>
-            <td style="width:100px;"><b>수량</b></td>
-            <td style="width:100px;"><b>가격</b></td>
-        </tr>
+            <tr>
+                <td style="width:100px;"><b>구분</b></td>
+                <td style="width:200px;"><b>제품명</b></td>
+                <td style="width:100px;"><b>수량</b></td>
+                <td style="width:100px;"><b>가격</b></td>
+            </tr>
 
-        <tr th:each="list, listStat : ${list}">
-           <td>
-               <img th:src="@{/tools/download(image = ${list.thumbnail})}" style="border:1px solid; width:50px; height:50px;">
-               <input type="hidden" name="item_idx" th:value="${list.Item_idx}">
-               <input type="hidden" name="basket_idx" th:value="${list.Basket_idx}">
-           </td>
-           <td><span>[[${list.ItemName}]]</span></td>
-           <td>
-               <span>[[${list.quantity}]]</span> 개
-               <input type="hidden" name="item_quantity" th:value="${list.quantity}">
-           </td>
-           <td>
-               <span class="price">[[${list.quantity} * ${list.price}]]</span>원
-               <input type="hidden" name="total_pay" th:value="${list.quantity} * ${list.price}">
-           </td>
-        </tr>
+            <tr th:each="list, listStat : ${list}">
+               <td>
+                   <ul class="list-group">
+                       <li class="list-group-item" style="height:65px;">
+                           <img th:src="@{/tools/download(image = ${list.thumbnail})}" style="border:1px solid; width:50px; height:50px;">
+                       </li>
+                   </ul>
+                   <input type="hidden" name="item_idx" th:value="${list.Item_idx}">
+                   <input type="hidden" name="basket_idx" th:value="${list.Basket_idx}">
+                   <input type="hidden" name="item_quantity" th:value="${list.quantity}">
+                   <input type="hidden" name="total_pay" th:value="${list.quantity} * ${list.price}">
+               </td>
 
+               <td>
+                   <ul class="list-group">
+                       <li class="list-group-item" style="height:65px;">
+                           <div style="margin:10px auto;">
+                                <span th:text="${list.ItemName}"></span>
+                           </div>
+                       </li>
+                   </ul>
+               </td>
+
+               <td>
+                   <ul class="list-group">
+                       <li class="list-group-item" style="height:65px;">
+                           <div style="margin:10px auto;">
+                                <span th:text="${list.quantity}+'개'"></span>
+                           </div>
+                       </li>
+                   </ul>
+               </td>
+
+               <td>
+                   <ul class="list-group">
+                       <li class="list-group-item" style="height:65px;">
+                           <div style="margin:10px auto;">
+                                <span th:text="${list.quantity} * ${list.price} + '원'"></span>
+                           </div>
+                       </li>
+                   </ul>
+               </td>
+            </tr>
+
+            <tr>
+                <td colspan="4" style="text-align:right;">
+                    <b>총 결제 금액</b>: <span id="total"></span> 원
+                    <input type="hidden" id="total_pay" value="">
+                </td>
+            </tr>
+        </table>
+    <hr style="width:50%; height:1px; background-color:slategray; margin:-50px 500px;">
+    <table style="margin:100px 500px; width:50%;"> <!-- 결제 -->
         <tr>
-            <td colspan="4" style="text-align:right;">
-                <b>총 결제 금액</b>: <span id="total"></span> 원
-                <input type="hidden" id="total_pay" value="">
-            </td>
-        </tr>
-    </table>
-    <hr style="width:700px; height:1px; background-color:slategray;">
-    <table> <!-- 결제 -->
-        <tr>
-            <td colspan="2" style="text-align:center; text-decoration:underline;">
+            <td colspan="2" style="text-align:center;">
                 <h2>Payment Info</h2>
             </td>
         </tr>
 
         <tr>
-            <td><b>결제수단</b></td>
             <td>
-                <input type="radio" name="pay" value="account" onclick="payment_way(this.value)">계좌이체
-                <input type="radio" name="pay" value="card" onclick="payment_way(this.value)">카드결제
-                <input type="radio" name="pay" value="drink_pay" onclick="payment_way(this.value)">Drink Pay
-                <br>
+                <ul class="list-group">
+                    <div class="input-group flex-nowrap">
+                        <span class="input-group-text" style="width:150px;">&emsp;&ensp;결제수단</span>
+                        <div class="form-control" style="text-align:center;">
+                            &emsp;&emsp;
+                            <input type="radio" name="pay" value="account" onclick="payment_way(this.value)"> 계좌이체&emsp;&emsp;
+                            <input type="radio" name="pay" value="card" onclick="payment_way(this.value)"> 카드결제&emsp;&emsp;
+                            <input type="radio" name="pay" value="drink_pay" onclick="payment_way(this.value)"> Drink Pay
+                        </div>
+                    </div>
+                </ul>
             </td>
         </tr>
 
         <tr>
             <td colspan="2" style="text-align:center;">
                 <br>
-                <div id="account_div" style="display:none;"> <!-- 계좌이체  -->
-                    <select onchange="random_account(this.value)" style="text-align:center; border-top:0px; border-left:0px; border-right:0px;">
-                        <option value="none">선택</option>
-                        <option value="NH_BANK">NH 농협</option>
-                        <option value="DGB_BANK">대구은행</option>
-                        <option value="IBK_BANK">기업은행</option>
-                        <option value="SHINHAN_BANK">신한은행</option>
-                    </select>
-                    &emsp;
-                    <input type="text" id="auto_account" readonly style="text-align:center; border-top:0px; border-left:0px; border-right:0px;">
+                <!-- 계좌이체 -->
+                <div id="account_div" style="display:none;">
+                    <div class="input-group mb-3" style="width:50%; margin:0 auto;">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">계좌선택</button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="none" onclick="random_account(this.id)">선택</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="NH_BANK" onclick="random_account(this.id)">NH 농협</a></li>
+                            <li><a class="dropdown-item" href="#" id="DGB_BANK" onclick="random_account(this.id)">대구은행</a></li>
+                            <li><a class="dropdown-item" href="#" id="IBK_BANK" onclick="random_account(this.id)">기업은행</a></li>
+                            <li><a class="dropdown-item" href="#" id="SHINHAN_BANK" onclick="random_account(this.id)">신한은행</a></li>
+                        </ul>
+                        <input type="text" class="form-control" id="auto_account" aria-label="Text input with dropdown button" readonly style="text-align:center;">
+                    </div>
                 </div>
 
                 <div id="card_div" style="display:none;"> <!-- 카드결제 -->
                     <div>
-                        <span><b>카드사</b></span>
-                        <select style="text-align:center; width:200px;">
-                            <option>선택</option>
-                            <option>삼성카드</option>
-                            <option>KB국민카드</option>
-                            <option>신한카드</option>
-                            <option>현대카드</option>
-                            <option>BC카드</option>
-                        </select>
+                        <ul class="list-group">
+                            <div class="input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping1" style="width:150px;">카드사</span>
+                                <select class="form-control" style="text-align:center; width:200px;">
+                                    <option>선택</option>
+                                    <option>삼성카드</option>
+                                    <option>KB국민카드</option>
+                                    <option>신한카드</option>
+                                    <option>현대카드</option>
+                                    <option>BC카드</option>
+                                </select>
+                            </div>
+                        </ul>
                     </div>
+
                     <div>
-                        <span><b>카드번호</b></span>
-                        <input type="number" min="1111" max="9999" style="width:50px;">
-                        <input type="number" min="1111" max="9999" style="width:50px;">
-                        <input type="number" min="1111" max="9999" style="width:50px;">
-                        <input type="number" min="1111" max="9999" style="width:50px;">
-                    </div>
-                    <div>
-                        <span><b>CVC / CVV 번호</b></span>
-                        <input type="number" min="100" max="999" placeholder="카드 뒷면 숫자 3자리" style="width:150px;">
+                        <div style="width:65%; float:left;">
+                            <ul class="list-group">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" style="width:150px;">카드번호</span>
+                                    <div class="form-control">
+                                        <input type="number" min="1111" max="9999" style="width:100px; border:1px solid lightgray; border-radius:5px;">
+                                        <input type="number" min="1111" max="9999" style="width:100px; border:1px solid lightgray; border-radius:5px;">
+                                        <input type="number" min="1111" max="9999" style="width:100px; border:1px solid lightgray; border-radius:5px;">
+                                        <input type="number" min="1111" max="9999" style="width:100px; border:1px solid lightgray; border-radius:5px;">
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div style="width:35%; float:left;">
+                            <ul class="list-group">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" style="width:150px;">CVC / CVV 번호</span>
+                                    <div class="form-control">
+                                        <input type="number" min="100" max="999" placeholder="카드 뒷면 숫자 3자리" style="border:1px solid lightgray; border-radius:5px; width:160px; text-align:center;">
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <div id="drink_pay_div" style="text-align:center; display:none;">
-                    <div>
-                        <b>현재 잔액: </b> <span id="pay_cash" th:text="${user.cash}"></span>원 &emsp; +<b>충전</b>
-                    </div><br>
-                    <div>
-                        <b>결제 금액: </b> <span id="pay_price">1200</span>원
-                    </div><br>
-                    <div>
-                        <b>결제 후 잔액: </b> <span id="pay_result"></span>원
+                    <div style="width:50%; margin:0 auto;">
+                        <ul class="list-group">
+                            <div class="input-group flex-nowrap">
+                                <span class="input-group-text" style="width:150px;">&emsp;&ensp;현재 잔액</span>
+                                <span class="form-control" th:text="${user.cash}+' 원'" style="text-align:right;"></span>
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">+충전</button>
+                            </div>
+                        </ul>
+                    </div>
+                    <br>
+                    <div style="margin:0 auto; width:80%;">
+                        <div style="width:50%; float:left;">
+                            <ul class="list-group">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" style="width:150px;">결제 금액</span>
+                                    <span class="form-control" style="text-align:right;"></span>
+                                </div>
+                            </ul>
+                        </div>
+
+                        <div style="width:50%; float:left;">
+                            <ul class="list-group">
+                                <div class="input-group flex-nowrap">
+                                    <span class="input-group-text" style="width:150px;">결제 후 잔액</span>
+                                    <span class="form-control" style="text-align:right;"></span>
+                                </div>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <br>
             </td>
         </tr>
     </table>
-    <hr style="width:700px; height:1px; background-color:slategray;">
-    <table>
-        <tr>
-            <td colspan="2" style="text-align:center; text-decoration:underline;"><h2>Delivery Info</h2></td>
-        </tr>
 
+        <hr style="width:50%; height:1px; background-color:slategray; margin:-50px 500px;">
+
+    <table style="margin:100px 500px; width:50%;">
         <tr>
             <td colspan="2" style="text-align:center;">
-                <input type="radio" name="getter_set" value="">내 주소입력
-                &emsp;&emsp;
-                <input type="radio" name="getter_set" value="">직접입력
-                <br><br>
+                <h2>Delivery Info</h2>
             </td>
         </tr>
 
         <tr>
-            <td><b>받는분</b></td>
-            <td><input type="text" name="getter"></td>
+            <td style="text-align:center; height:80px;">
+                <div style="width:50%; margin:0 auto;">
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:150px;">&emsp;&emsp;구분</span>
+                            <div class="form-control">
+                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="" style="vertical-align:middle;"> 내 주소입력
+                                &emsp;&emsp;
+                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="" style="vertical-align:middle;"> 직접입력
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </td>
         </tr>
 
         <tr>
-            <td><b>연락처</b></td>
-            <td><input type="text" name="hp" placeholder="-없이 숫자만 입력"></td>
-        </tr>
-
-        <tr>
-            <td><b>주소</b></td>
             <td>
-                <input type="text" name="add1" id="add1" placeholder="우편번호">
-                <input type="button" onclick="address_api()" value="우편번호 찾기"><br>
-                <input type="text" name="add2" id="add2" placeholder="주소">
-                <input type="text" name="add3" id="add3" placeholder="참고항목">
+                <div>
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:150px;">받는분</span>
+                            <input class="form-control" name="getter">
+                        </div>
+                    </ul>
+                </div>
             </td>
         </tr>
 
         <tr>
-            <td><b>배송 시<br>요청 사항</b></td>
             <td>
-                <select id="order_request" onchange="request_set(this.value)">
-                    <option value="none">배송 메모를 선택해주세요.</option>
-                    <option value="부재 시 연락바랍니다.">부재 시 연락바랍니다.</option>
-                    <option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
-                    <option value="배송 전 연락주세요.">배송 전 연락주세요.</option>
-                    <option value="택배보관함에 보관해주세요.">택배보관함에 보관해주세요.</option>
-                    <option value="부재 시 집앞에 놔주세요.">부재 시 집앞에 놔주세요.</option>
-                    <option value="직접입력">직접입력</option>
-                </select><br>
-                <textarea name="request" id="request_content" style="resize:none; width:300px; height:100px;"></textarea>
+                <div>
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:150px;">연락처</span>
+                            <input class="form-control" name="hp" placeholder="-없이 숫자만 입력">
+                        </div>
+                    </ul>
+                </div>
             </td>
         </tr>
+
         <tr>
-            <td colspan="2" style="text-align:right;">
-                <br>
-                <input type="submit" value="결제하기">
+            <td style="height:140px;">
+                <div>
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:150px;">&emsp;&ensp;주소</span>
+                            <input class="form-control" name="add1" id="add1" placeholder="우편번호">
+                            <button class="btn btn-outline-secondary" type="button" onclick="address_api()">우편번호 찾기</button>
+                        </div>
+                    </ul>
+                </div>
+
+                <div>
+                    <div style="width:50%; float:left;">
+                        <ul class="list-group">
+                            <div class="input-group flex-nowrap">
+                                <input type="text" class="form-control" name="add2" id="add2" placeholder="주소">
+                            </div>
+                        </ul>
+                    </div>
+
+                    <div style="width:50%; float:left;">
+                        <ul class="list-group">
+                            <div class="input-group flex-nowrap">
+                                <input type="text" class="form-control" name="add3" id="add3" placeholder="참고항목">
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="Comment_td1">
+                <div>
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <span class="input-group-text" style="width:90px;">요청사항</span>
+                            <select class="form-control" id="order_request" onchange="request_set(this.value)" style="text-align:center;">
+                                <option value="none">배송 메모를 선택해주세요.</option>
+                                <option value="부재 시 연락바랍니다.">부재 시 연락바랍니다.</option>
+                                <option value="부재 시 경비실에 맡겨주세요.">부재 시 경비실에 맡겨주세요.</option>
+                                <option value="배송 전 연락주세요.">배송 전 연락주세요.</option>
+                                <option value="택배보관함에 보관해주세요.">택배보관함에 보관해주세요.</option>
+                                <option value="부재 시 집앞에 놔주세요.">부재 시 집앞에 놔주세요.</option>
+                                <option value="직접입력">직접입력</option>
+                            </select>
+                        </div>
+                    </ul>
+                </div>
+
+                <div>
+                    <ul class="list-group">
+                        <div class="input-group flex-nowrap">
+                            <textarea name="content" id="request_content" class="form-control" style="resize:none; height:200px;"></textarea>
+                        </div>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="height:100px;">
+                <input type="submit" class="btn btn-secondary" value="결제하기" style="width:100%;">
             </td>
         </tr>
     </table>
@@ -185,6 +330,7 @@
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     window.onload = function()
