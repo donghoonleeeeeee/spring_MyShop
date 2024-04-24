@@ -20,7 +20,7 @@
         <tr>
             <td colspan="2" style="text-align:center;">
                 <h2><span th:if="${view.type == '공지'}">Announce</span></h2>
-                <h2><span th:if="${view.type == '리뷰'}"><b>Review</b></span></h2>
+                <h2><span th:if="${view.type == '리뷰'}">Review</span></h2>
             </td>
         </tr>
 
@@ -120,6 +120,7 @@
                     </ul>
                     <input type="hidden" name="community_idx" th:value="${view.idx}">
                     <input type="hidden" name="comment_idx" id="comment_idx" value="0">
+
                 </td>
             </tr>
 

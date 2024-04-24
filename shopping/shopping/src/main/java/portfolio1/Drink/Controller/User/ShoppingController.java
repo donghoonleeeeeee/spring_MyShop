@@ -53,6 +53,7 @@ public class ShoppingController
     @PostMapping("/Payment")
     public String Payment(PaymentDTO paymentDTO, Model model, Principal principal)
     {
+        System.out.println("user 정보 "+shoppingService.Users(principal));
         model.addAttribute("list",shoppingService.Payment(paymentDTO));
         model.addAttribute("user",shoppingService.Users(principal));
         return "User/Items/Payment";

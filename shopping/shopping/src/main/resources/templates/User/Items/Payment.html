@@ -66,7 +66,7 @@
                    <ul class="list-group">
                        <li class="list-group-item" style="height:65px;">
                            <div style="margin:10px auto;">
-                                <span th:text="${list.quantity} * ${list.price} + '원'"></span>
+                                <span class="price">[[${list.quantity} * ${list.price}]]</span>원
                            </div>
                        </li>
                    </ul>
@@ -173,7 +173,7 @@
                         <ul class="list-group">
                             <div class="input-group flex-nowrap">
                                 <span class="input-group-text" style="width:150px;">&emsp;&ensp;현재 잔액</span>
-                                <span class="form-control" th:text="${user.cash}+' 원'" style="text-align:right;"></span>
+                                <span class="form-control" id="pay_cash" style="text-align:right;">[[${user.cash}]]</span> 원
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">+충전</button>
                             </div>
                         </ul>
@@ -184,7 +184,7 @@
                             <ul class="list-group">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text" style="width:150px;">결제 금액</span>
-                                    <span class="form-control" style="text-align:right;"></span>
+                                    <span class="form-control" id="pay_price" style="text-align:right;"></span>
                                 </div>
                             </ul>
                         </div>
@@ -193,7 +193,7 @@
                             <ul class="list-group">
                                 <div class="input-group flex-nowrap">
                                     <span class="input-group-text" style="width:150px;">결제 후 잔액</span>
-                                    <span class="form-control" style="text-align:right;"></span>
+                                    <span class="form-control" id="pay_result" style="text-align:right;"></span>
                                 </div>
                             </ul>
                         </div>
@@ -220,9 +220,9 @@
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" style="width:150px;">&emsp;&emsp;구분</span>
                             <div class="form-control">
-                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="" style="vertical-align:middle;"> 내 주소입력
+                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="user" onclick="set_add(this.value)" style="vertical-align:middle;"> 내 주소입력
                                 &emsp;&emsp;
-                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="" style="vertical-align:middle;"> 직접입력
+                                <input class="form-check-input mt-0" type="radio" name="getter_set" value="self" onclick="set_add(this.value)" style="vertical-align:middle;"> 직접입력
                             </div>
                         </div>
                     </ul>
@@ -236,7 +236,8 @@
                     <ul class="list-group">
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" style="width:150px;">받는분</span>
-                            <input class="form-control" name="getter">
+                            <input class="form-control" name="name" id="name">
+                            <input type="hidden" id="my_name" th:value="${user.name}">
                         </div>
                     </ul>
                 </div>
@@ -249,7 +250,8 @@
                     <ul class="list-group">
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" style="width:150px;">연락처</span>
-                            <input class="form-control" name="hp" placeholder="-없이 숫자만 입력">
+                            <input class="form-control" name="hp" id="hp" placeholder="-없이 숫자만 입력">
+                            <input type="hidden" id="my_hp" th:value="${user.hp}">
                         </div>
                     </ul>
                 </div>
@@ -263,6 +265,7 @@
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" style="width:150px;">&emsp;&ensp;주소</span>
                             <input class="form-control" name="add1" id="add1" placeholder="우편번호">
+                            <input type="hidden" id="my_add1" th:value="${user.add1}">
                             <button class="btn btn-outline-secondary" type="button" onclick="address_api()">우편번호 찾기</button>
                         </div>
                     </ul>
@@ -273,6 +276,7 @@
                         <ul class="list-group">
                             <div class="input-group flex-nowrap">
                                 <input type="text" class="form-control" name="add2" id="add2" placeholder="주소">
+                                <input type="hidden" id="my_add2" th:value="${user.add2}">
                             </div>
                         </ul>
                     </div>
@@ -281,6 +285,7 @@
                         <ul class="list-group">
                             <div class="input-group flex-nowrap">
                                 <input type="text" class="form-control" name="add3" id="add3" placeholder="참고항목">
+                                <input type="hidden" id="my_add3" th:value="${user.add3}">
                             </div>
                         </ul>
                     </div>
@@ -332,134 +337,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    window.onload = function()
-    {
-        var price = document.getElementsByClassName("price");
-        var result = 0;
-        for(var a=0; a<price.length; a++)
-        {
-            result += parseInt(price[a].innerHTML);
-        }
-        document.getElementById("total").innerHTML = result;
-        document.getElementById("pay_price").innerHTML = result;
-        document.getElementById("total_pay").value = result;
-
-        var pay_cash = parseInt(document.getElementById("pay_cash").innerHTML);
-        var pay_price = parseInt(document.getElementById("pay_price").innerHTML);
-        if(pay_cash >= pay_price) // 잔액 < 구매금액
-        {
-            document.getElementById("pay_result").innerHTML = pay_cash - pay_price;
-        }
-        else
-        {
-            alert("잔액이 부족합니다!");
-            location.replace('/User/Basket');
-        }
-    }
-    function request_set(value)
-    {
-        if(value == "직접입력")
-        {
-            document.getElementById("request_content").innerHTML = "";
-        }
-        else if(value == "none")
-        {
-            document.getElementById("request_content").innerHTML = "";
-        }
-        else
-        {
-            document.getElementById("request_content").innerHTML = value;
-        }
-    }
-
-    function address_api()
-    {
-        new daum.Postcode({
-            oncomplete: function(data)
-            {
-                var addr = ''; // 주소 변수
-                var extraAddr = ''; // 참고항목 변수
-
-                if (data.userSelectedType === 'R') // 사용자가 도로명 주소를 선택했을 경우
-                {
-                    addr = data.roadAddress;
-                }
-                else // 사용자가 지번 주소를 선택했을 경우(J)
-                {
-                    addr = data.jibunAddress;
-                }
-
-                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                if(data.userSelectedType === 'R')
-                {
-                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname))
-                    {
-                        extraAddr += data.bname;
-                    }
-                    if(data.buildingName !== '' && data.apartment === 'Y')
-                    {
-                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    if(extraAddr !== '')
-                    {
-                        extraAddr = ' (' + extraAddr + ')';
-                    }
-                    document.getElementById("add3").value = extraAddr;
-                }
-                else
-                {
-                    document.getElementById("add3").value = '';
-                }
-                document.getElementById('add1').value = data.zonecode;
-                document.getElementById("add2").value = addr;
-            }
-        }).open();
-    }
-    function payment_way(value)
-    {
-        if(value == "account")
-        {
-            document.getElementById("account_div").style.display = "inline";
-            document.getElementById("card_div").style.display = "none";
-            document.getElementById("drink_pay_div").style.display = "none";
-        }
-        else if(value == "card")
-        {
-            document.getElementById("account_div").style.display = "none";
-            document.getElementById("card_div").style.display = "inline";
-            document.getElementById("drink_pay_div").style.display = "none";
-        }
-        else if(value == "drink_pay")
-        {
-            document.getElementById("account_div").style.display = "none";
-            document.getElementById("card_div").style.display = "none";
-            document.getElementById("drink_pay_div").style.display = "inline";
-        }
-    }
-    function random_account(value)
-    {
-        if(value == "none")
-        {
-            document.getElementById("auto_account").value = "";
-        }
-        else if(value == "NH_BANK")
-        {
-            document.getElementById("auto_account").value = "001-1234-1234-1";
-        }
-        else if(value == "DGB_BANK")
-        {
-            document.getElementById("auto_account").value = "002-1234-1234-2";
-        }
-        else if(value == "IBK_BANK")
-        {
-            document.getElementById("auto_account").value = "003-1234-1234-3";
-        }
-        else if(value == "SHINHAN_BANK")
-        {
-            document.getElementById("auto_account").value = "004-1234-1234-4";
-        }
-    }
-</script>
+<script src="/js/User/Payment.js" th:inline="javascript"></script>
 </html>
 

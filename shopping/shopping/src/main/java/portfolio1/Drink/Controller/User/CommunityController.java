@@ -98,7 +98,7 @@ public class CommunityController
     }
 
     @GetMapping("/CommunityModify")
-    public String Community_Modify(@RequestParam("idx")Long idx, @RequestParam("userid")String userid, Model model)
+    public String Community_Modify(@RequestParam("idx")Long idx, Model model)
     {
         model.addAttribute("info",communityService.CommunityModify(idx));
         return "User/Community/CommunityModify";
