@@ -3,6 +3,8 @@ package portfolio1.Drink.Entity.Shopping;
 
 import jakarta.persistence.*;
 import lombok.*;
+import portfolio1.Drink.DTO.Shopping.MyOrdersDTO;
+import portfolio1.Drink.DTO.Shopping.OrderDTO;
 import portfolio1.Drink.Entity.Items.ItemsEntity;
 
 @Entity
@@ -41,5 +43,18 @@ public class OrderEntity
     @Setter
     @Column(name="regdate")
     private String regdate;
+
+
+    public MyOrdersDTO toDTO()
+    {
+        return MyOrdersDTO.builder()
+                .idx(idx)
+                .item_name(itemsEntity.getItem())
+                .item_price(itemsEntity.getPrice())
+                .quantity(quantity)
+                .pay_type(pay_type)
+                .regdate(regdate)
+                .build();
+    }
 
 }

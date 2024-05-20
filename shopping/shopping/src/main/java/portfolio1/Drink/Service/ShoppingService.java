@@ -19,4 +19,6 @@ public interface ShoppingService
     Integer LikeCount(Long idx);
     List<ItemsDTO> NewAddItems();
     List<ItemsDTO> BestItems();
+    List<MyOrdersDTO> MyOrders(Principal principal, String start, String end);
+    List<DeliveryDTO> MyDelivery(Principal principal, String start, String end);
 }

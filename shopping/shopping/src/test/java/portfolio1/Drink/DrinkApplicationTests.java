@@ -10,6 +10,7 @@ import portfolio1.Drink.Repository.Items.ItemCategoryRepository;
 import portfolio1.Drink.Repository.Items.ItemsRepository;
 import portfolio1.Drink.Repository.Shopping.BasketRepository;
 import portfolio1.Drink.Repository.Shopping.ItemLikesRepository;
+import portfolio1.Drink.Repository.Shopping.OrderRepository;
 import portfolio1.Drink.Service.ItemsService;
 
 @SpringBootTest
@@ -36,10 +37,15 @@ class DrinkApplicationTests {
 	@Autowired
 	ItemLikesRepository itemLikesRepository;
 
+	@Autowired
+	OrderRepository orderRepository;
+
 	@Test
 	void 카테고리()
 	{
-		System.out.println(basketRepository.findByItemsEntity_Idx(24L).size());
+		String start = "2024-04-24";
+		String end = "2024-04-25";
+		System.out.println(orderRepository.findByToStart("new1",start).size());
 	}
 
 

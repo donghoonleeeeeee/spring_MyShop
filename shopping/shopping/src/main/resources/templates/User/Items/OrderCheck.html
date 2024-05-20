@@ -29,37 +29,47 @@
             <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                 <table style="width:50%; margin:100px 500px;">
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <div style="text-align:center;">
                                 <h2>Order Check</h2>
                             </div>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <div class="input-group mb-3">
-                                <div class="form-control" style="text-align:center;">
-                                    <input type="date" name="start" style="border: 0.5px solid lightgray; border-radius:5px; width:250px;">&emsp;
-                                    <span>&emsp;&emsp;-&emsp;&emsp;</span>
-                                    <input type="date" name="end" style="border: 0.5px solid lightgray; border-radius:5px; width:250px;">&emsp;
+                        <td colspan="2">
+                            <form action="/User/Order" method="get">
+                                <div class="input-group mb-3">
+                                    <div class="form-control" style="text-align:center;">
+                                        <input type="date" name="order_start" style="border: 0.5px solid lightgray; border-radius:5px; width:250px; text-align:center;">&emsp;
+                                        <span>&emsp;&emsp;-&emsp;&emsp;</span>
+                                        <input type="date" name="order_end" style="border: 0.5px solid lightgray; border-radius:5px; width:250px; text-align:center;">&emsp;
+                                    </div>
+                                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">조회</button>
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon1">조회</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="주문한 상품을 검색할 수 있어요!" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">검색</button>
-                            </div>
+                            </form>
                         </td>
                     </tr>
 
+                    <th:block th:each="orders : ${orders}">
                     <tr>
                         <td>
-                            <span>2024.04.19</span>
-                            <span>주문 상세정보</span>
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <span><b>결제일</b>: </span>
+                                    <span th:text="${orders.regdate}"></span>
+                                </li>
+                            </ul>
+                        </td>
+
+                        <td rowspan="2">
+                            <ul class="list-group">
+                                <li class="list-group-item" style="height:90px; text-align:center;">
+                                    <span><b>결제수단</b>: </span>
+                                    <span th:text="${orders.pay_type}"></span><br><br>
+                                    <span><b>결제 금액</b>: </span>
+                                    <span th:text="${orders.item_price} * ${orders.quantity} + '원'"></span>
+                                </li>
+                            </ul>
                         </td>
                     </tr>
 
@@ -67,60 +77,105 @@
                         <td>
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <span>test</span>
+                                    <div style="float:left;">
+                                    <span><b>제품명</b>: </span>
+                                    <span th:text="${orders.item_name}"></span>
+                                    </div>
+
+                                    <div style="float:right;">
+                                    <span><b>수량</b>: </span>
+                                    <span th:text="${orders.quantity}+'개'"></span>
+                                    &emsp;&emsp;
+                                    </div>
                                 </li>
                             </ul>
                         </td>
                     </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <hr>
+                        </td>
+                    </tr>
+
+                    </th:block>
                 </table>
             </div>
 
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                 <table style="width:50%; margin:100px 500px;">
                     <tr>
-                        <td>
+                        <td colspan="2">
                             <div style="text-align:center;">
                                 <h2>Delivery Check</h2>
                             </div>
                         </td>
                     </tr>
+
                     <tr>
-                        <td>
+                    <td colspan="2">
+                        <form action="/User/Order" method="get">
                             <div class="input-group mb-3">
                                 <div class="form-control" style="text-align:center;">
-                                    <input type="date" name="start" style="border: 0.5px solid lightgray; border-radius:5px; width:250px;">&emsp;
+                                    <input type="date" name="delivery_start" style="border: 0.5px solid lightgray; border-radius:5px; width:250px; text-align:center;">&emsp;
                                     <span>&emsp;&emsp;-&emsp;&emsp;</span>
-                                    <input type="date" name="end" style="border: 0.5px solid lightgray; border-radius:5px; width:250px;">&emsp;
+                                    <input type="date" name="delivery_end" style="border: 0.5px solid lightgray; border-radius:5px; width:250px; text-align:center;">&emsp;
                                 </div>
-                                <button class="btn btn-outline-secondary" type="button">조회</button>
+                                <button class="btn btn-outline-secondary" type="submit">조회</button>
                             </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="주문한 상품을 검색할 수 있어요!" aria-describedby="button-addon2">
-                                <button class="btn btn-outline-secondary" type="button">검색</button>
-                            </div>
-                        </td>
-                    </tr>
+                        </form>
+                    </td>
+                </tr>
 
-                    <tr>
-                        <td>
-                            <span>2024.04.19</span>
-                            <span>주문 상세정보</span>
-                        </td>
-                    </tr>
+                    <th:block th:each="delivery : ${deliverys}">
+                        <tr>
+                            <td>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <span><b>받는분</b>: </span>
+                                        <span th:text="${delivery.getter}"></span>
+                                    </li>
+                                </ul>
+                            </td>
 
-                    <tr>
-                        <td>
-                            <ul class="list-group">
-                                <li class="list-group-item">
-                                    <span>test</span>
-                                </li>
-                            </ul>
-                        </td>
-                    </tr>
+                            <td rowspan="2">
+                                <ul class="list-group">
+                                    <li class="list-group-item" style="height:90px; text-align:center;">
+                                        <span><b>주소지</b>: </span>
+                                        <span th:text="${delivery.add1}+'/'+${delivery.add2}+'/'+${delivery.add3}"></span><br><br>
+                                        <span><b>배송 조회</b>: </span>
+                                        <span th:if="${#strings.substring(delivery.regdate,0,10)} >= ${#calendars.format(#calendars.createNow(),'yyyy-MM-dd')}">배송중</span>
+                                        <span th:if="${#strings.substring(delivery.regdate,0,10)} < ${#calendars.format(#calendars.createNow(),'yyyy-MM-dd')}">배송완료</span>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div style="float:left;">
+                                            <span><b>연락처</b>: </span>
+                                            <span th:text="${delivery.hp}"></span>
+                                        </div>
+
+                                        <div style="float:right;">
+                                            <span><b>요청사항</b>: </span>
+                                            <span th:text="${delivery.request}"></span>
+                                            &emsp;&emsp;
+                                        </div>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <hr>
+                            </td>
+                        </tr>
+                    </th:block>
                 </table>
             </div>
         </div>

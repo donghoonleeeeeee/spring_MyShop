@@ -15,12 +15,14 @@ import java.util.Date;
 @Builder
 public class DeliveryDTO
 {
+    private Long idx;
     private String getter; // 받는분
     private String hp; // 연락처
     private String add1; // 주소1
     private String add2; // 주소2
     private String add3; // 주소3
     private String request; // 요청사항
+    private String regdate;
 
     public DeliveryEntity toEntity()
     {
