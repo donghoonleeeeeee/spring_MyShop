@@ -132,7 +132,7 @@ window.onload = function()
         if(value == "user")
         {
             // 받는 분
-            document.getElementById("name").value = document.getElementById("my_name").value;
+            document.getElementById("getter").value = document.getElementById("my_name").value;
             // 연락처
             document.getElementById("hp").value = document.getElementById("my_hp").value;
             // add1
@@ -145,7 +145,7 @@ window.onload = function()
         else
         {
             // 받는 분
-            document.getElementById("name").value = "";
+            document.getElementById("getter").value = "";
             // 연락처
             document.getElementById("hp").value = "";
             // add1

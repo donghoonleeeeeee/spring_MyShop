@@ -19,6 +19,8 @@ import portfolio1.Drink.Service.ItemsService;
 import portfolio1.Drink.Service.ShoppingService;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -53,7 +55,6 @@ public class ShoppingController
     @PostMapping("/Payment")
     public String Payment(PaymentDTO paymentDTO, Model model, Principal principal)
     {
-        System.out.println("user 정보 "+shoppingService.Users(principal));
         model.addAttribute("list",shoppingService.Payment(paymentDTO));
         model.addAttribute("user",shoppingService.Users(principal));
         return "User/Items/Payment";
@@ -62,11 +63,8 @@ public class ShoppingController
     @PostMapping("/PayResult")
     public String OrderAndDelivery(OrderDTO orderDTO, DeliveryDTO deliveryDTO, Principal principal)
     {
-        System.out.println("OrderDTO: "+ orderDTO);
-        System.out.println("DeliveryDTO: "+ deliveryDTO);
-        System.out.println("UserID: "+principal.getName());
         shoppingService.PayResult(orderDTO, deliveryDTO, principal);
-        return null;
+        return "redirect:/User/Order";
     }
 
     @GetMapping("/MyPage")
@@ -76,10 +74,15 @@ public class ShoppingController
     }
 
     @GetMapping("/Order")
-    public String OrderCheck()
+    public String OrderCheck(Model model, Principal principal,
+                             @RequestParam(name="oder_start", defaultValue="none") String order_start, @RequestParam(name="order_end", defaultValue="none") String order_end,
+                             @RequestParam(name="delivery_start", defaultValue="none")String delivery_start, @RequestParam(name="delivery_end", defaultValue="none")String delivery_end)
     {
+        model.addAttribute("orders",shoppingService.MyOrders(principal, order_start, order_end));
+        model.addAttribute("deliverys",shoppingService.MyDelivery(principal, delivery_start, delivery_end));
         return "User/Items/OrderCheck";
     }
+
     @GetMapping("/test")
     public String test()
     {

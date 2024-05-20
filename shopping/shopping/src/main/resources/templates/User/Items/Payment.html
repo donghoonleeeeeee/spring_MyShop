@@ -97,7 +97,7 @@
                             &emsp;&emsp;
                             <input type="radio" name="pay" value="account" onclick="payment_way(this.value)"> 계좌이체&emsp;&emsp;
                             <input type="radio" name="pay" value="card" onclick="payment_way(this.value)"> 카드결제&emsp;&emsp;
-                            <input type="radio" name="pay" value="drink_pay" onclick="payment_way(this.value)"> Drink Pay
+                            <input type="radio" name="pay" value="Drink Pay" onclick="payment_way(this.value)"> Drink Pay
                         </div>
                     </div>
                 </ul>
@@ -236,7 +236,7 @@
                     <ul class="list-group">
                         <div class="input-group flex-nowrap">
                             <span class="input-group-text" style="width:150px;">받는분</span>
-                            <input class="form-control" name="name" id="name">
+                            <input class="form-control" name="getter" id="getter">
                             <input type="hidden" id="my_name" th:value="${user.name}">
                         </div>
                     </ul>
@@ -315,7 +315,7 @@
                 <div>
                     <ul class="list-group">
                         <div class="input-group flex-nowrap">
-                            <textarea name="content" id="request_content" class="form-control" style="resize:none; height:200px;"></textarea>
+                            <textarea name="request" id="request_content" class="form-control" style="resize:none; height:200px;"></textarea>
                         </div>
                     </ul>
                 </div>

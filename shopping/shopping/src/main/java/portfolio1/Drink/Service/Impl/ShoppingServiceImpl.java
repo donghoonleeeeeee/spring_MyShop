@@ -26,6 +26,8 @@ import portfolio1.Drink.Service.ShoppingService;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Service
@@ -118,21 +120,29 @@ public class ShoppingServiceImpl implements ShoppingService
     @Override
     public void PayResult(OrderDTO orderDTO, DeliveryDTO deliveryDTO, Principal principal)
     {
+        LOGGER.info("[결제] 결제 정보: "+orderDTO);
+        LOGGER.info("[배송] 배송 정보: "+deliveryDTO);
+
         ItemsEntity items = null;
         BasketEntity basket = null;
+
         Date now = new Date();
         SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        LOGGER.info("[결제] 결제일 등록 : "+sd.format(now));
+
         int cash = 0;
         LOGGER.info("[결제] 결제를 진행합니다.");
         for(int a=0; a<orderDTO.getItem_idx().size(); a++)
         {
             cash = cash + orderDTO.getTotal_pay().get(a);
+
             basket = basketRepository.findById(Long.valueOf(orderDTO.getBasket_idx().get(a))).orElse(null);
             if(basket != null)
             {
                 basketRepository.delete(basket);
             }
             LOGGER.info("[결제] "+(a+1)+"번째 장바구니를 제거합니다.");
+
             items = itemsRepository.findById(Long.valueOf(orderDTO.getItem_idx().get(a))).orElse(null);
             OrderEntity order = new OrderEntity();
             order.setItemsEntity(items);
@@ -141,13 +151,20 @@ public class ShoppingServiceImpl implements ShoppingService
             order.setTotal_pay(orderDTO.getTotal_pay().get(a));
             order.setUserid(principal.getName());
             order.setRegdate(sd.format(now));
+
             LOGGER.info("[결제] "+(a+1)+"번째 아이템을 주문 목록에 등록합니다. / 물품명: "+items.getItem());
+
             orderRepository.save(order);
         }
+        LOGGER.info("[결제] 총 결제 금액: "+cash);
 
         UserEntity user = userRepository.findByUserid(principal.getName());
-        user.setCash(user.getCash()-cash);
+        int result = user.getCash()-cash;
+        user.setCash(result);
+        LOGGER.info("[결제] 접속 계정의 금액을 차감합니다. / 잔액: "+result);
+
         userRepository.save(user);
+
 
         DeliveryEntity delivery = deliveryDTO.toEntity();
         delivery.setUserid(principal.getName());
@@ -212,12 +229,27 @@ public class ShoppingServiceImpl implements ShoppingService
     {
         List<ItemsEntity> entities = itemsRepository.findAll(Sort.by(Sort.Direction.DESC,"regdate"));
         List<ItemsDTO> dtos = new ArrayList<>();
-        for(int a=0; a<10; a++)
+
+        if(!entities.isEmpty())
         {
-            ItemsDTO dto = entities.get(a).toDTO();
-            dtos.add(dto);
+            if(entities.size()>10)
+            {
+                for (int a = 0; a < 10; a++)
+                {
+                    ItemsDTO dto = entities.get(a).toDTO();
+                    dtos.add(dto);
+                }
+            }
+            else
+            {
+                for (int a=0; a<entities.size(); a++)
+                {
+                    ItemsDTO dto = entities.get(a).toDTO();
+                    dtos.add(dto);
+                }
+            }
         }
-        
+
         return dtos;
     }
 
@@ -237,5 +269,111 @@ public class ShoppingServiceImpl implements ShoppingService
         }
         LOGGER.info("[Home Service] 정보 저장 중..");
         return dtos;
+    }
+
+    @Override
+    public List<MyOrdersDTO> MyOrders(Principal principal, String start, String end)
+    {
+        LOGGER.info("[주문목록] 날짜를 검색합니다. Start, End : {}, {}",start,end);
+
+        List<OrderEntity> entity_orders = null;
+        List<MyOrdersDTO> dto_orders = new ArrayList<>();
+
+        if(start.equals("none") && end.equals("none")) // 날짜 검색 데이터가 없으면
+        {
+            entity_orders = orderRepository.findAllByUserid(principal.getName());
+
+            for (int a = 0; a < entity_orders.size(); a++)
+            {
+                MyOrdersDTO dto = entity_orders.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else if(!start.equals("none") && end.equals("none"))
+        {
+            LOGGER.info("[주문목록] 시작 일자를 기준으로 검색");
+            entity_orders = orderRepository.findByToStart(principal.getName(),start);
+            for(int a=0; a<entity_orders.size(); a++)
+            {
+                MyOrdersDTO dto = entity_orders.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else if(start.equals("none") && !end.equals("none"))
+        {
+            LOGGER.info("[주문목록] 끝 일자를 기준으로 검색");
+            entity_orders = orderRepository.findByToStart(principal.getName(),end);
+            for(int a=0; a<entity_orders.size(); a++)
+            {
+                MyOrdersDTO dto = entity_orders.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else
+        {
+            entity_orders = orderRepository.findByToDate(principal.getName(),start,end);
+            for(int a=0; a<entity_orders.size(); a++)
+            {
+                MyOrdersDTO dto = entity_orders.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+    }
+
+    @Override
+    public List<DeliveryDTO> MyDelivery(Principal principal, String start, String end)
+    {
+        LOGGER.info("[주문목록] 날짜를 검색합니다. Start, End : {}, {}",start,end);
+
+        List<DeliveryEntity> entity_deliverys = null;
+        List<DeliveryDTO> dto_orders = new ArrayList<>();
+
+        if(start.equals("none") && end.equals("none")) // 날짜 검색 데이터가 없으면
+        {
+            entity_deliverys = deliveryRepository.findAllByUserid(principal.getName());
+
+            for (int a = 0; a < entity_deliverys.size(); a++)
+            {
+                DeliveryDTO dto = entity_deliverys.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else if(!start.equals("none") && end.equals("none"))
+        {
+            LOGGER.info("[주문목록] 시작 일자를 기준으로 검색");
+            entity_deliverys = deliveryRepository.findByToStart(principal.getName(),start);
+            for(int a=0; a<entity_deliverys.size(); a++)
+            {
+                DeliveryDTO dto = entity_deliverys.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else if(start.equals("none") && !end.equals("none"))
+        {
+            LOGGER.info("[주문목록] 끝 일자를 기준으로 검색");
+            entity_deliverys = deliveryRepository.findByToStart(principal.getName(),end);
+            for(int a=0; a<entity_deliverys.size(); a++)
+            {
+                DeliveryDTO dto = entity_deliverys.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
+        else
+        {
+            entity_deliverys = deliveryRepository.findByToDate(principal.getName(),start,end);
+            for(int a=0; a<entity_deliverys.size(); a++)
+            {
+                DeliveryDTO dto = entity_deliverys.get(a).toDTO();
+                dto_orders.add(dto);
+            }
+            return dto_orders;
+        }
     }
 }
