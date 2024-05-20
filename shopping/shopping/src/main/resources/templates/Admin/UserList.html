@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Category</title>
+</head>
 
 <th:block th:replace="~{../static/css/home/top.css}"></th:block>
 <th:block th:replace="~{../static/css/UserList.css}"></th:block>
@@ -11,9 +16,9 @@
 
 <section>
     <form>
-    <table style="width:80%; margin:100px auto">
+    <table style="width:60%; margin:100px auto">
         <tr>
-            <td colspan="5" class="users_title">
+            <td colspan="5" style="text-align:center;">
                 <h2>User List</h2>
                 <br>
             </td>
@@ -28,13 +33,45 @@
         </tr>
 
         <tr th:each="users : ${user_list}">
-            <td class="user_check_"><input type="checkbox" name="User_Check" th:value="${users.idx}"></td>
-            <td class="user_name_">
-                <span id="name"><a th:href="@{/admin/UserView(idx = ${users.idx})}">[[${users.name}]]</a></span>
+            <td class="user_check_">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <input type="checkbox" name="User_Check" th:value="${users.idx}">
+                    </li>
+                </ul>
             </td>
-            <td class="user_gender_"><span id="gender">[[${users.gender}]]</span></td>
-            <td class="user_date_"><span id="date">[[${users.year}]]년 [[${users.month}]]월 [[${users.day}]]일</span></td>
-            <td class="user_phone_"><span id="phone">[[${users.hp}]]</span></td>
+
+            <td class="user_name_">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span id="name"><a th:href="@{/admin/UserView(idx = ${users.idx})}">[[${users.name}]]</a></span>
+                    </li>
+                </ul>
+            </td>
+
+            <td class="user_gender_">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span id="gender" th:text="${users.gender}"></span>
+                    </li>
+                </ul>
+            </td>
+
+            <td class="user_date_">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span id="date" th:text="${users.year} + '년' + ${users.month} + '월' + ${users.day} + '일'"></span>
+                    </li>
+                </ul>
+            </td>
+
+            <td class="user_phone_">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span id="phone" th:text="${users.hp}"></span>
+                    </li>
+                </ul>
+            </td>
         </tr>
 
         <tr>
@@ -48,5 +85,5 @@
 </section>
 <th:block th:replace="~{../static/inc/bottom.html}"></th:block>
 </body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </html>

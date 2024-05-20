@@ -18,7 +18,7 @@
         <table style="width:40%; margin:100px auto">
             <tr>
                 <td style="text-align:center;">
-                    <span style="font-weight:bold; font-size:40px;">User View</span>
+                    <h2>User View</h2>
                     <input type="hidden" name="idx" th:value="${user.idx}">
                     <input type="hidden" name="regdate" th:value="${user.regdate}">
                     <br>
@@ -39,15 +39,6 @@
                     <div class="input-group">
                         <span class="input-group-text" style="width:100px;">아이디</span>
                         <span class="form-control">[[${user.userid}]]</span>
-                    </div>
-                </td>
-            </tr>
-
-            <tr>
-                <td class="td1">
-                    <div class="input-group">
-                        <span class="input-group-text" style="width:100px;">비밀번호</span>
-                        <span class="form-control">&emsp;-</span>
                     </div>
                 </td>
             </tr>
@@ -101,7 +92,16 @@
                 <td class="td1">
                     <div class="input-group">
                         <span class="input-group-text" style="width:100px;">잔액</span>
-                        <span class="form-control">[[${user.cash}]]</span>
+                        <span class="form-control" th:text="${#numbers.formatInteger(user.cash,3,'COMMA') + '원'}"></span>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="td1">
+                    <div class="input-group">
+                        <span class="input-group-text" style="width:100px;">총 결제액</span>
+                        <span class="form-control" th:text="${#numbers.formatInteger(500000,3,'COMMA') + '원'}"></span>
                     </div>
                 </td>
             </tr>
