@@ -96,7 +96,7 @@ window.onload = function()
             document.getElementById("card_div").style.display = "inline";
             document.getElementById("drink_pay_div").style.display = "none";
         }
-        else if(value == "drink_pay")
+        else if(value == "Drink_Pay")
         {
             document.getElementById("account_div").style.display = "none";
             document.getElementById("card_div").style.display = "none";

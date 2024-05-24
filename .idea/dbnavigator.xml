@@ -16,32 +16,23 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="26f8d027-0caa-4f25-8168-2e1e68776512">
-      <console name="Connection" type="STANDARD" schema="" session="Main"><![CDATA[select * from drink_member
-update drink_member set grade=3 where idx=2
-update drink_member set grade=3 where idx=1
-select * from drink_items
-
-update drink_member set grade=3 where idx=1
-
-commit
-
-select * from community_category
-select max(to_number(category)) from community_category]]></console>
-    </connection>
-    <connection id="80335296-1f3d-40b7-9afa-a58ea4a983e6">
-      <console name="tester" type="STANDARD" schema="" session="Main" />
+    <connection id="9dd3c3ac-990a-41f9-8c15-ae14866e2197">
+      <console name="Shoppoing" type="STANDARD" schema="" session="Main"><![CDATA[select userid, sum(total_pay) as sum 
+from drink_order 
+where userid = 'new1' 
+group by userid]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="9dd3c3ac-990a-41f9-8c15-ae14866e2197" object-ref="consoles/Shoppoing" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="26f8d027-0caa-4f25-8168-2e1e68776512" />
-    <connection id="80335296-1f3d-40b7-9afa-a58ea4a983e6" />
+    <connection id="9dd3c3ac-990a-41f9-8c15-ae14866e2197" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -63,9 +54,9 @@ select max(to_number(category)) from community_category]]></console>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="26f8d027-0caa-4f25-8168-2e1e68776512" active="true" signed="true">
+      <connection id="9dd3c3ac-990a-41f9-8c15-ae14866e2197" active="true" signed="true">
         <database>
-          <name value="Connection" />
+          <name value="Shoppoing" />
           <description value="" />
           <database-type value="ORACLE" />
           <config-type value="BASIC" />
@@ -76,11 +67,11 @@ select max(to_number(category)) from community_category]]></console>
           <url-type value="SID" />
           <host value="localhost" />
           <port value="1521" />
-          <database value="orcl" />
+          <database value="XE" />
           <tns-folder value="" />
           <tns-profile value="" />
           <type value="USER_PASSWORD" />
-          <user value="system" />
+          <user value="shopping" />
           <deprecated-pwd value="MTIzNA==" />
         </database>
         <properties>
@@ -127,6 +118,7 @@ select max(to_number(category)) from community_category]]></console>
           <debugger-type value="ASK" />
         </debugger>
         <object-filters hide-empty-schemas="false" hide-pseudo-columns="false" hide-audit-columns="false">
+          <object-filters />
           <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
@@ -154,101 +146,6 @@ select max(to_number(category)) from community_category]]></console>
             <object-type name="CLUSTER" enabled="true" />
             <object-type name="DBLINK" enabled="true" />
           </object-type-filter>
-          <object-name-filters />
-        </object-filters>
-      </connection>
-      <connection id="80335296-1f3d-40b7-9afa-a58ea4a983e6" active="true" signed="true">
-        <database>
-          <name value="tester" />
-          <description value="" />
-          <database-type value="ORACLE" />
-          <config-type value="BASIC" />
-          <database-version value="9999.0" />
-          <driver-source value="BUNDLED" />
-          <driver-library value="" />
-          <driver value="" />
-          <url-type value="SID" />
-          <host value="localhost" />
-          <port value="1521" />
-          <database value="orcl" />
-          <tns-folder value="" />
-          <tns-profile value="" />
-          <type value="USER_PASSWORD" />
-          <user value="tester" />
-          <deprecated-pwd value="MTIzNA==" />
-        </database>
-        <properties>
-          <auto-commit value="false" />
-        </properties>
-        <ssh-settings>
-          <active value="false" />
-          <proxy-host value="" />
-          <proxy-port value="22" />
-          <proxy-user value="" />
-          <deprecated-proxy-pwd value="" />
-          <auth-type value="PASSWORD" />
-          <key-file value="" />
-          <key-passphrase value="" />
-        </ssh-settings>
-        <ssl-settings>
-          <active value="false" />
-          <certificate-authority-file value="" />
-          <client-certificate-file value="" />
-          <client-key-file value="" />
-        </ssl-settings>
-        <details>
-          <charset value="UTF-8" />
-          <session-management value="true" />
-          <ddl-file-binding value="true" />
-          <database-logging value="true" />
-          <connect-automatically value="true" />
-          <restore-workspace value="true" />
-          <restore-workspace-deep value="false" />
-          <environment-type value="default" />
-          <connectivity-timeout value="30" />
-          <idle-time-to-disconnect value="30" />
-          <idle-time-to-disconnect-pool value="5" />
-          <credential-expiry-time value="10" />
-          <max-connection-pool-size value="7" />
-          <alternative-statement-delimiter value="" />
-        </details>
-        <debugger>
-          <compile-dependencies value="true" />
-          <tcp-driver-tunneling value="false" />
-          <tcp-host-address value="" />
-          <tcp-port-from value="4000" />
-          <tcp-port-to value="4999" />
-          <debugger-type value="ASK" />
-        </debugger>
-        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false" hide-audit-columns="false">
-          <object-type-filter use-master-settings="true">
-            <object-type name="SCHEMA" enabled="true" />
-            <object-type name="USER" enabled="true" />
-            <object-type name="ROLE" enabled="true" />
-            <object-type name="PRIVILEGE" enabled="true" />
-            <object-type name="CHARSET" enabled="true" />
-            <object-type name="TABLE" enabled="true" />
-            <object-type name="VIEW" enabled="true" />
-            <object-type name="MATERIALIZED_VIEW" enabled="true" />
-            <object-type name="NESTED_TABLE" enabled="true" />
-            <object-type name="COLUMN" enabled="true" />
-            <object-type name="INDEX" enabled="true" />
-            <object-type name="CONSTRAINT" enabled="true" />
-            <object-type name="DATASET_TRIGGER" enabled="true" />
-            <object-type name="DATABASE_TRIGGER" enabled="true" />
-            <object-type name="SYNONYM" enabled="true" />
-            <object-type name="SEQUENCE" enabled="true" />
-            <object-type name="PROCEDURE" enabled="true" />
-            <object-type name="FUNCTION" enabled="true" />
-            <object-type name="PACKAGE" enabled="true" />
-            <object-type name="TYPE" enabled="true" />
-            <object-type name="TYPE_ATTRIBUTE" enabled="true" />
-            <object-type name="ARGUMENT" enabled="true" />
-            <object-type name="DIMENSION" enabled="true" />
-            <object-type name="CLUSTER" enabled="true" />
-            <object-type name="DBLINK" enabled="true" />
-          </object-type-filter>
-          <object-name-filters />
         </object-filters>
       </connection>
     </connections>

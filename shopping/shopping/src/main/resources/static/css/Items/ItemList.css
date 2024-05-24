@@ -2,27 +2,26 @@
 .ItemList_table
 {
     text-align:center;
-    margin:50px 630px;
+    margin:80px auto;
     width:60%;
-}
-tr td
-{
-    border:1px solid;
 }
 .list_check
 {
     width:50px;
     font-weight:bold;
+    font-size:20px;
 }
 .list_image, .list_item, .list_inventory
 {
     width: 100px;
     font-weight:bold;
+    font-size:20px;
 }
 .list_price
 {
     width: 150px;
     font-weight:bold;
+    font-size:20px;
 }
 .list_btn
 {
@@ -38,15 +37,5 @@ tr td
     text-align:center;
     font-size:16px;
 }
-.modify_btn, .delete_btn, .type_back
-{
-    width:75px;
-    height:30px;
-    border-top:0px;
-    border-left:0px;
-    border-right:0px;
-    background-color:white;
-    font-size:18px;
-    font-weight:bold;
-}
+
 </style>

@@ -28,7 +28,8 @@
 
         <tr>
             <td colspan="5">
-                <select name="category1" id="category1" onchange="set_category2(this.value)" class="form-select" aria-label="Default select example" style="width:20%; text-align:center; float:left;">
+                <div style="float:left; width:60%;">
+                <select name="category1" id="category1" onchange="set_category2(this.value)" class="form-select" aria-label="Default select example" style="width:33%; text-align:center; float:left;">
                     <option value="none" selected>선택</option>
                     <th:block th:each="first : ${first}">
                         <option th:text="${first.category_name}"
@@ -36,17 +37,22 @@
                         </option>
                     </th:block>
                 </select>
-                &emsp;
-                <select name="category2" id="category2" onchange="set_category3(this.value)" class="form-select" aria-label="Default select example" style="width:20%; text-align:center; float:left;">
+
+                <select name="category2" id="category2" onchange="set_category3(this.value)" class="form-select" aria-label="Default select example" style="width:33%; text-align:center; float:left;">
                     <option value="none">선택</option>
                 </select>
-                &emsp;
-                <select name="category3" id="category3" class="form-select" aria-label="Default select example" style="width:20%; text-align:center; float:left;">
+
+                <select name="category3" id="category3" class="form-select" aria-label="Default select example" style="width:33%; text-align:center; float:left;">
                     <option value="none">선택</option>
                 </select>
-                &emsp;
-                <input type="text" name="keyword" id="keyword" style="width:100px;">
-                <input type="button" value="검색" onclick="search_item()">
+                </div>
+
+                <div class="input-group mb-3" style="width:40%; float:left;">
+                    <input type="text" name="keyword" id="keyword" class="form-control">
+                    <input type="button" value="검색" onclick="search_item()" class="btn btn-outline-secondary">
+                </div>
+
+                <hr style="width:100%; border-color:black; ">
             </td>
         </tr>
 
@@ -60,15 +66,46 @@
 
         <tr th:each="list : ${item_list}" id="item_list">
             <td>
-                <input type="checkbox" id="check" name="check" th:value="${list.idx}" onclick="change_value(this.value)">
-                <input type="checkbox" th:id="'check'+${list.idx}" name="item_check" value="0" checked style="display:none;">
+                <ul class="list-group">
+                    <li class="list-group-item" style="height:170px;">
+                        <input type="checkbox" id="check" name="check" th:value="${list.idx}" onclick="change_value(this.value)" style="margin:65px auto;">
+                        <input type="checkbox" th:id="'check'+${list.idx}" name="item_check" value="0" checked style="display:none;">
+                    </li>
+                </ul>
             </td>
-            <td><img th:src="@{/tools/thum_download(image = 'thum_'+${list.itemsFileEntities.get(0).path})}" width="150px" height="150px;"></td>
-            <td align="center"><a th:href="@{/admin/ItemsModify(idx = ${list.idx})}">[[${list.item}]]</a></td>
+
             <td>
-                <input type="text" th:id="inventory+${list.idx}" name="inventory" th:value="${list.inventory}" onclick="result(this.value)" style="width:50px; text-align:right;">EA&emsp;
+                <ul class="list-group">
+                    <li class="list-group-item" style="height:170px;">
+                        <img th:src="@{/tools/thum_download(image = 'thum_'+${list.itemsFileEntities.get(0).path})}" width="150px" height="150px;">
+                    </li>
+                </ul>
             </td>
-            <td><input type="text" th:id="price+${list.idx}" name="price" th:value="${list.price}" onclick="result(this.value)" style="width:80px; text-align:right;">원</td>
+
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item" style="height:170px;">
+                        <br><br><br>
+                        <a th:href="@{/admin/ItemsModify(idx = ${list.idx})}"><span th:text="${list.item}"></span></a>
+                    </li>
+                </ul>
+            </td>
+
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item" style="height:170px;">
+                        <input type="text" th:id="inventory+${list.idx}" name="inventory" th:value="${list.inventory}" onclick="result(this.value)" style="width:50px; text-align:right; margin:65px auto; border:1px solid lightgray; border-radius:5px;">EA&emsp;
+                    </li>
+                </ul>
+            </td>
+
+            <td>
+                <ul class="list-group">
+                    <li class="list-group-item" style="height:170px;">
+                        <input type="text" th:id="price+${list.idx}" name="price" th:value="${list.price}" onclick="result(this.value)" style="width:80px; text-align:right; margin:65px auto; border:1px solid lightgray; border-radius:5px;">원
+                    </li>
+                </ul>
+            </td>
         </tr>
 
         <tr>
@@ -100,8 +137,8 @@
 
         <tr>
             <td colspan="5" class="list_btn">
-                <button type="submit" formaction="/admin/List_modify" class="modify_btn" formmethod="post">수정</button>&emsp;
-                <button type="submit" formaction="/admin/List_delete" class="delete_btn" formmethod="post">삭제</button>
+                <button type="submit" formaction="/admin/List_modify" class="btn btn-outline-secondary" formmethod="post">수정</button>
+                <button type="submit" formaction="/admin/List_delete" class="btn btn-outline-secondary" formmethod="post">삭제</button>
                 <br><br>
             </td>
         </tr>

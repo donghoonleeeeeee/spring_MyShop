@@ -97,7 +97,7 @@
                             &emsp;&emsp;
                             <input type="radio" name="pay" value="account" onclick="payment_way(this.value)"> 계좌이체&emsp;&emsp;
                             <input type="radio" name="pay" value="card" onclick="payment_way(this.value)"> 카드결제&emsp;&emsp;
-                            <input type="radio" name="pay" value="Drink Pay" onclick="payment_way(this.value)"> Drink Pay
+                            <input type="radio" name="pay" value="Drink_Pay" onclick="payment_way(this.value)"> Drink Pay
                         </div>
                     </div>
                 </ul>
@@ -173,7 +173,7 @@
                         <ul class="list-group">
                             <div class="input-group flex-nowrap">
                                 <span class="input-group-text" style="width:150px;">&emsp;&ensp;현재 잔액</span>
-                                <span class="form-control" id="pay_cash" style="text-align:right;">[[${user.cash}]]</span> 원
+                                <span class="form-control" id="pay_cash" th:text="${user.cash} + '원'" style="text-align:right;"></span>
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">+충전</button>
                             </div>
                         </ul>
